@@ -73,4 +73,7 @@ dependencies {
     // hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    // okhttp
+    implementation(libs.okhttp.logging)
 }
