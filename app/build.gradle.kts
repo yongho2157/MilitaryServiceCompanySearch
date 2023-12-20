@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -7,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 val properties = Properties().apply { load(FileInputStream(File(rootProject.rootDir, "local.properties"))) }
@@ -76,4 +76,7 @@ dependencies {
 
     // okhttp
     implementation(libs.okhttp.logging)
+
+    // navigation
+    implementation(libs.navigation.fragment.ktx)
 }
