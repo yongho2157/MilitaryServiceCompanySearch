@@ -50,5 +50,9 @@ dependencies {
     // tikxml
     implementation(libs.tikxml.annotation)
     implementation(libs.tikxml.core)
+    implementation(libs.tikxml.retrofit.converter)
     ksp(libs.tikxml.processor)
+
+    // retrofit
+    implementation(libs.retrofit.core)
 }
