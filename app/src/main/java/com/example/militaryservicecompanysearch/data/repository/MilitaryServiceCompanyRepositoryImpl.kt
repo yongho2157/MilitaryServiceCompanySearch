@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanysearch.data.repository
 
+import android.util.Log
 import com.example.militaryservicecompanysearch.data.source.remote.MilitaryServiceCompanyDataSource
 import com.example.militaryservicecompanysearch.domain.model.Item
 import com.example.militaryservicecompanysearch.domain.repository.MilitaryServiceCompanyRepository
@@ -11,6 +12,7 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(private val milit
     MilitaryServiceCompanyRepository {
     override suspend fun getRecruitmentNotices(): Flow<List<Item>> = flow {
         val items = militaryServiceCompanyDataSource.getRecruitmentNotices().body.items
+        Log.d("결과", "items : $items")
         emit(items.item)
     }
 }

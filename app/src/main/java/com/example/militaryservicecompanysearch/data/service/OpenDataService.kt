@@ -6,8 +6,8 @@ import retrofit2.http.Query
 
 interface OpenDataService {
 
-    @GET("/list")
-    fun getRecruitmentNotices(
+    @GET("list")
+    suspend fun getRecruitmentNotices(
         @Query("numOfRows") numOfRows: Int,
         @Query("pageNo") pageNo: Int,
         @Query("ServiceKey") serviceKey: String
