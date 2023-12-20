@@ -11,6 +11,7 @@ constraintlayout = "2.1.4"
 tikxml = "0.8.13"
 ksp = "1.9.10-1.0.13"
 retrofit = "2.9.0"
+hilt = "2.48.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -25,8 +26,12 @@ tikxml-core = { group = "com.tickaroo.tikxml", name = "core", version.ref = "tik
 tikxml-processor = { group = "com.tickaroo.tikxml", name = "processor", version.ref = "tikxml" }
 tikxml-retrofit-converter = { group = "com.tickaroo.tikxml", name = "retrofit-converter", version.ref = "tikxml" }
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

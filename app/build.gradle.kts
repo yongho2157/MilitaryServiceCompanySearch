@@ -55,4 +55,8 @@ dependencies {
 
     // retrofit
     implementation(libs.retrofit.core)
+
+    // hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }
