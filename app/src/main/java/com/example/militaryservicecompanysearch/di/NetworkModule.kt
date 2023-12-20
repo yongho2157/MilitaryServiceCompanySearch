@@ -1,6 +1,7 @@
 package com.example.militaryservicecompanysearch.di
 
 import com.example.militaryservicecompanysearch.BuildConfig
+import com.example.militaryservicecompanysearch.data.service.OpenDataService
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import dagger.Module
@@ -26,23 +27,32 @@ object NetworkModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    fun providesOpenDataApi(
+        retrofit: Retrofit
+    ): OpenDataService = retrofit.create(OpenDataService::class.java)
+
     /**
      * xml 요소를 전부 가져오지 않기 위해 지정
      */
     @Provides
     @Singleton
     fun provideTikXml(): TikXml {
-        return TikXml.Builder().exceptionOnUnreadXml(false).build()
+        return TikXml.Builder()
+            .exceptionOnUnreadXml(false)
+            .build()
     }
 
     @Provides
     @Singleton
     fun providesOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor
-    ): OkHttpClient =
-        OkHttpClient.Builder()
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
+    }
 
     @Provides
     @Singleton
