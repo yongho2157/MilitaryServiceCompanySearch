@@ -1,8 +1,8 @@
 package com.example.militaryservicecompanysearch.data.repository
 
 import android.util.Log
+import com.example.militaryservicecompanysearch.data.model.Item
 import com.example.militaryservicecompanysearch.data.source.remote.MilitaryServiceCompanyDataSource
-import com.example.militaryservicecompanysearch.domain.model.Item
 import com.example.militaryservicecompanysearch.domain.repository.MilitaryServiceCompanyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
