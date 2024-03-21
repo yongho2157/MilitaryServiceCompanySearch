@@ -3,10 +3,10 @@ import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 val properties = Properties().apply { load(FileInputStream(File(rootProject.rootDir, "local.properties"))) }
@@ -24,8 +24,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", properties.getProperty("base_url"))
-        buildConfigField("String", "SERVICE_KEY", properties.getProperty("service_key"))
+//        buildConfigField("String", "BASE_URL", properties.getProperty("base_url"))
+//        buildConfigField("String", "SERVICE_KEY", properties.getProperty("service_key"))
     }
 
     buildTypes {
@@ -65,14 +65,14 @@ dependencies {
     implementation(libs.tikxml.annotation)
     implementation(libs.tikxml.core)
     implementation(libs.tikxml.retrofit.converter)
-    ksp(libs.tikxml.processor)
+    kapt(libs.tikxml.processor)
 
     // retrofit
     implementation(libs.retrofit.core)
 
     // hilt
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
 
     // okhttp
     implementation(libs.okhttp.logging)
