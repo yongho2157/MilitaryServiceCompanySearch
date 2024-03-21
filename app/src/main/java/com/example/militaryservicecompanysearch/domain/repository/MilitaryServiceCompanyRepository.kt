@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface MilitaryServiceCompanyRepository {
 
-    suspend fun getRecruitmentNotices(): Flow<List<Item>>
+    fun getRecruitmentNotices(): Flow<List<Item>>
 
 }

@@ -10,9 +10,14 @@ import javax.inject.Inject
 
 class MilitaryServiceCompanyRepositoryImpl @Inject constructor(private val militaryServiceCompanyDataSource: MilitaryServiceCompanyDataSource) :
     MilitaryServiceCompanyRepository {
-    override suspend fun getRecruitmentNotices(): Flow<List<Item>> = flow {
-        val items = militaryServiceCompanyDataSource.getRecruitmentNotices().body.items
-        Log.d("결과", "items : $items")
-        emit(items.item)
+    override fun getRecruitmentNotices(): Flow<List<Item>> = flow {
+        Log.d("결과", "getRecruitmentNotices")
+        try {
+            val items = militaryServiceCompanyDataSource.getRecruitmentNotices().body.items
+            Log.d("결과", "items : $items")
+            emit(items.item)
+        } catch (e: Exception) {
+            Log.d("결과", "e: ${e.message}")
+        }
     }
 }
