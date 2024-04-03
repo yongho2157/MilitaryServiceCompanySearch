@@ -1,0 +1,3 @@
+package com.example.militaryservicecompanysearch.domain
+
+sealed interface Error

@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanysearch.di
 
+import com.example.militaryservicecompanysearch.BuildConfig
 import com.example.militaryservicecompanysearch.data.service.OpenDataService
 import com.tickaroo.tikxml.TikXml
 import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
@@ -20,7 +21,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okhttp: OkHttpClient, tikXml: TikXml): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://apis.data.go.kr/1300000/CyJeongBo/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okhttp)
             .addConverterFactory(TikXmlConverterFactory.create(tikXml))
             .build()
