@@ -8,7 +8,7 @@ import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 
 class RecruitmentNoticeAdapter : RecyclerView.Adapter<RecruitmentNoticeViewHolder>() {
 
-     var recruitmentNoticeList: List<RecruitmentNotice> = mutableListOf()
+     var recruitmentNoticeList = mutableListOf<RecruitmentNotice>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecruitmentNoticeViewHolder {
         val binding = RecruitmentNoticeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,6 +21,12 @@ class RecruitmentNoticeAdapter : RecyclerView.Adapter<RecruitmentNoticeViewHolde
 
     override fun onBindViewHolder(holder: RecruitmentNoticeViewHolder, position: Int) {
         holder.bind(recruitmentNoticeList[position])
+    }
+
+    fun addAll(data: List<RecruitmentNotice>) {
+        recruitmentNoticeList.clear()
+        recruitmentNoticeList.addAll(data)
+        notifyDataSetChanged()
     }
 
 }

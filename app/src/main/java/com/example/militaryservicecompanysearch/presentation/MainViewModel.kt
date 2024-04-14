@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.militaryservicecompanysearch.domain.DataError
-import com.example.militaryservicecompanysearch.domain.Result
+import com.example.militaryservicecompanysearch.domain.model.DataError
+import com.example.militaryservicecompanysearch.domain.model.Result
 import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 import com.example.militaryservicecompanysearch.domain.repository.MilitaryServiceCompanyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,22 +19,11 @@ class MainViewModel @Inject constructor(
     private val militaryServiceCompanyRepository: MilitaryServiceCompanyRepository
 ) : ViewModel() {
 
-
-    init {
-        getRecruitmentNotices()
-    }
     val recruitmentNoticeList: MutableLiveData<List<RecruitmentNotice>> by lazy {
         MutableLiveData<List<RecruitmentNotice>>()
     }
 
     fun getRecruitmentNotices() {
-//        Log.d("결과", "getRecruitmentNotices")
-//        militaryServiceCompanyRepository.getRecruitmentNotices()
-//            .map {
-//                recruitmentNoticeList.value = it
-//            }
-//            .launchIn(viewModelScope)
-
         viewModelScope.launch {
             when (val result = militaryServiceCompanyRepository.getRecruitmentNotices()) {
                 is Result.Error -> {

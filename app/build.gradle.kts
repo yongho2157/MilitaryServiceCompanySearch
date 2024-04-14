@@ -24,8 +24,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//        buildConfigField("String", "BASE_URL", properties.getProperty("base_url"))
-//        buildConfigField("String", "SERVICE_KEY", properties.getProperty("service_key"))
+        buildConfigField("String", "BASE_URL", properties.getProperty("base_url"))
+        buildConfigField("String", "SERVICE_KEY", properties.getProperty("service_key"))
     }
 
     buildTypes {
@@ -44,14 +44,11 @@ android {
 
     buildFeatures {
         buildConfig = true
+        dataBinding = true
     }
 
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-
-    buildFeatures {
-        dataBinding = true
     }
 }
 
@@ -81,6 +78,9 @@ dependencies {
     // okhttp
     implementation(libs.okhttp.logging)
 
+    implementation(libs.fragment.ktx)
+
     // navigation
     implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
 }

@@ -8,7 +8,7 @@ object RecruitmentNoticeMapper {
 
     fun List<Item>.toListRecruitmentNoticeMapper(): List<RecruitmentNotice> = map { it.toRecruitmentNoticeMapper() }
 
-    fun Item.toRecruitmentNoticeMapper(): RecruitmentNotice = RecruitmentNotice(
+    private fun Item.toRecruitmentNoticeMapper(): RecruitmentNotice = RecruitmentNotice(
         companyName = eopcheNm ?: "",
         title = cyjemokNm ?: "",
         jobPosition = ddeopmuNm ?: "",

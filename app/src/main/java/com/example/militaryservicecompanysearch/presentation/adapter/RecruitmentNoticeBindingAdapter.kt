@@ -7,12 +7,13 @@ import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 
 object RecruitmentNoticeBindingAdapter {
 
-    @JvmStatic
-    @BindingAdapter("app:items")
-    fun setList(recyclerView: RecyclerView, items: List<RecruitmentNotice>?) {
-        items?.let {
-            (recyclerView.adapter as RecruitmentNoticeAdapter).recruitmentNoticeList = items
-        }
-    }
+//    @BindingAdapter("app:items")
+//    @JvmStatic
+//    fun setList(recyclerView: RecyclerView, items: List<RecruitmentNotice>?) {
+//        items?.let {
+//            (recyclerView.adapter as RecruitmentNoticeAdapter).recruitmentNoticeList = items.toMutableList()
+//            recyclerView.adapter?.notifyDataSetChanged()
+//        }
+//    }
 
 }

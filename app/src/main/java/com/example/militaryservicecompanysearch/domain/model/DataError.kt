@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanysearch.domain
+package com.example.militaryservicecompanysearch.domain.model
 
 sealed interface DataError: Error {
     enum class Network: DataError {

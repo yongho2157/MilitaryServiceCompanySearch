@@ -7,12 +7,7 @@ import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 class RecruitmentNoticeViewHolder(private val binding: RecruitmentNoticeItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(recruitmentNotice: RecruitmentNotice) {
-        with(binding) {
-            textViewCompanyName.text = recruitmentNotice.companyName
-            textViewTitle.text = recruitmentNotice.title
-            textViewJobPositionAndLocation.text = recruitmentNotice.jobPosition + " | " + recruitmentNotice.location
-
-        }
+        binding.recruitmentNotice = recruitmentNotice
     }
 
 }
