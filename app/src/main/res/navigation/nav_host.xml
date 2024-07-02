@@ -10,5 +10,10 @@
         android:name="com.example.militaryservicecompanysearch.presentation.JobBoardFragment"
         android:label="@string/job_board"
         tools:layout="@layout/fragment_job_board" />
+    <fragment
+        android:id="@+id/fragment_job_detail"
+        android:name="com.example.militaryservicecompanysearch.presentation.JobDetailFragment"
+        android:label="fragment_job_detail"
+        tools:layout="@layout/fragment_job_detail" />
 
 </navigation>
