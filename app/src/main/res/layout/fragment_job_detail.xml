@@ -1,32 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.JobDetailFragment">
-    
-    
+
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05"/>
+        app:layout_constraintGuide_percent="0.05" />
 
     <TextView
-        android:id="@+id/text_view_title"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingTop="15dp"
-        android:text=""
+        android:text="테스트 산업기능요원 모집 (보충역)"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/start_guideline"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/text_view_company_and_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="(주)테스트 | 서울"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/summarizer_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="요약"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/text_view_company_and_location" />
+
+    <TextView
+        android:id="@+id/dueDate_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="마감일"
+        android:paddingEnd="20dp"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/summarizer_title" />
+
+    <TextView
+        android:id="@+id/duData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2024.07.31"
+        app:layout_constraintBaseline_toBaselineOf="@id/dueDate_title"
+        app:layout_constraintStart_toEndOf="@id/dueDate_title"/>
+
+    <TextView
+        android:id="@+id/agent_type_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="요원 형태"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/dueDate_title" />
+
+    <TextView
+        android:id="@+id/agent_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현역"
+        app:layout_constraintBaseline_toTopOf="dueDate_title"
+        app:layout_constraintBaseline_toBaselineOf="@id/agent_type_title"
+        app:layout_constraintStart_toEndOf="@id/agent_type_title"/>
+
+    <TextView
+        android:id="@+id/work_location_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="근무지역"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/agent_type_title" />
+
+    <TextView
+        android:id="@+id/work_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서울"
+        app:layout_constraintBaseline_toBaselineOf="@id/work_location_title"
+        app:layout_constraintStart_toEndOf="@id/work_location_title"/>
+
+    <TextView
+        android:id="@+id/career_length_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="경력"
+        app:layout_constraintStart_toStartOf="@id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/work_location_title" />
+
+    <TextView
+        android:id="@+id/career_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1년이상"
+        app:layout_constraintBaseline_toBaselineOf="@id/career_length_title"
+        app:layout_constraintStart_toEndOf="@id/career_length_title"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
