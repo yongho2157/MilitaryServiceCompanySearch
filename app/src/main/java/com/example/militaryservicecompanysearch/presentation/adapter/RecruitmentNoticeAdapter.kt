@@ -6,13 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.militaryservicecompanysearch.databinding.RecruitmentNoticeItemBinding
 import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 
-class RecruitmentNoticeAdapter : RecyclerView.Adapter<RecruitmentNoticeViewHolder>() {
+class RecruitmentNoticeAdapter(
+    private val listener: RecyclerViewEvent
+) : RecyclerView.Adapter<RecruitmentNoticeViewHolder>() {
 
-     var recruitmentNoticeList = mutableListOf<RecruitmentNotice>()
+     private var recruitmentNoticeList = mutableListOf<RecruitmentNotice>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecruitmentNoticeViewHolder {
         val binding = RecruitmentNoticeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RecruitmentNoticeViewHolder(binding)
+        return RecruitmentNoticeViewHolder(binding, listener)
     }
 
     override fun getItemCount(): Int {
@@ -27,6 +29,10 @@ class RecruitmentNoticeAdapter : RecyclerView.Adapter<RecruitmentNoticeViewHolde
         recruitmentNoticeList.clear()
         recruitmentNoticeList.addAll(data)
         notifyDataSetChanged()
+    }
+
+    interface RecyclerViewEvent {
+        fun onItemClick(position: Int)
     }
 
 }

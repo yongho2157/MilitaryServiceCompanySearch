@@ -9,7 +9,11 @@
         android:id="@+id/fragment_job_board"
         android:name="com.example.militaryservicecompanysearch.presentation.JobBoardFragment"
         android:label="@string/job_board"
-        tools:layout="@layout/fragment_job_board" />
+        tools:layout="@layout/fragment_job_board" >
+        <action
+            android:id="@+id/action_fragment_job_board_to_fragment_job_detail"
+            app:destination="@id/fragment_job_detail" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_job_detail"
         android:name="com.example.militaryservicecompanysearch.presentation.JobDetailFragment"
