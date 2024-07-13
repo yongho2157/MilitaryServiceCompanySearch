@@ -56,8 +56,10 @@ data class Item(
     var damdangjaFnm: String?, // 담당자
     @PropertyElement(name = "ddeopmuNm")
     var ddeopmuNm: String?, // 담당업무
+    @PropertyElement(name = "ddjyeonrakcheoNo")
+    var ddjyeonrakcheoNo: String?, // 담당자연락처
     @PropertyElement(name = "dpyeonrakcheoNo")
-    var dpyeonrakcheoNo: String?, // 담당자연락처
+    var dpyeonrakcheoNo: String?, // 대표연락처
     @PropertyElement(name = "eopcheNm")
     var eopcheNm: String?, // 업체명
     @PropertyElement(name = "eopjongGbcd")
@@ -72,6 +74,8 @@ data class Item(
     var gmhyeongtaeNm: String?, // 근무일
     @PropertyElement(name = "gmjybjusoCd")
     var gmjybjusoCd: String?, // 근무지법정동코드
+    @PropertyElement(name = "grNs")
+    var grNs: String?, // 경력년수
     @PropertyElement(name = "gyeongryeokGbcdNm")
     var gyeongryeokGbcdNm: String?, // 경력구분
     @PropertyElement(name = "gyjogeonCd")

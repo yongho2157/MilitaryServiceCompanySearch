@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="recruitmentNotice"
             type="com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice" />
@@ -46,7 +45,7 @@
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:paddingTop="15dp"
-                    android:text="@{recruitmentNotice.title}"
+                    android:text="@{recruitmentNotice.recruitmentTitle}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"

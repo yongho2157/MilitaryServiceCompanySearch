@@ -13,7 +13,7 @@ import com.example.militaryservicecompanysearch.R
 import com.example.militaryservicecompanysearch.databinding.FragmentJobBoardBinding
 import com.example.militaryservicecompanysearch.presentation.adapter.RecruitmentNoticeAdapter
 
-class JobBoardFragment : Fragment(), RecruitmentNoticeAdapter.RecyclerViewEvent {
+class JobBoardFragment : Fragment() {
 
     private var _binding: FragmentJobBoardBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +31,11 @@ class JobBoardFragment : Fragment(), RecruitmentNoticeAdapter.RecyclerViewEvent 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recruitmentNoticeAdapter = RecruitmentNoticeAdapter(this)
+        val recruitmentNoticeAdapter = RecruitmentNoticeAdapter()
+        recruitmentNoticeAdapter.setOnItemClickListener {
+            val action = JobBoardFragmentDirections.actionFragmentJobBoardToFragmentJobDetail(it)
+            findNavController().navigate(action)
+        }
 
         viewModel.getRecruitmentNotices()
         binding.recyclerViewRecruitmentNotice.adapter = recruitmentNoticeAdapter
@@ -39,16 +43,12 @@ class JobBoardFragment : Fragment(), RecruitmentNoticeAdapter.RecyclerViewEvent 
         viewModel.recruitmentNoticeList.observe(requireActivity()) {
             recruitmentNoticeAdapter.addAll(it)
         }
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    override fun onItemClick(position: Int) {
-        Log.d("결과", "position: $position")
-        findNavController().navigate(R.id.action_fragment_job_board_to_fragment_job_detail)
     }
 
 }

@@ -7,6 +7,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-parcelize")
 }
 
 val properties = Properties().apply { load(FileInputStream(File(rootProject.rootDir, "local.properties"))) }
