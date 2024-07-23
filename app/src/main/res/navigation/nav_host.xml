@@ -21,8 +21,8 @@
     <fragment
         android:id="@+id/fragment_job_detail"
         android:name="com.example.militaryservicecompanysearch.presentation.JobDetailFragment"
-        android:label="fragment_job_detail"
-        tools:layout="@layout/fragment_job_detail" >
+        android:label="@string/job_detail"
+        tools:layout="@layout/fragment_job_detail">
         <argument
             android:name="RecruitmentNotice"
             app:argType="com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice" />

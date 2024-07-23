@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MilitaryServiceCompanySearch</string>
     <string name="job_board">채용공고</string>
+    <string name="job_detail">채용 상세</string>
 </resources>
