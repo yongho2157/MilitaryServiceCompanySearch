@@ -20,16 +20,30 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
         return try {
             val recruitmentNotices = militaryServiceCompanyLocalDataSource.getRecruitmentNotices()
             if (recruitmentNotices.isEmpty()) {
+                Log.d("결과", "api 요청")
                 val response = militaryServiceCompanyRemoteDataSource.fetchRecruitmentNotices().body.items.item
                 militaryServiceCompanyLocalDataSource.insertRecruitmentNotices(response.asEntity())
                 return Result.Success(response)
             } else {
+                Log.d("결과", "db 요청")
                 return Result.Success(recruitmentNotices.asDomain())
             }
         } catch (e: HttpException) {
             when (e.code()) {
                 408 -> Result.Error(DataError.Network.REQUEST_TIMEOUT)
                 else -> Result.Error(DataError.Network.UNKNOWN)
+            }
+        }
+    }
+
+    override suspend fun getRecruitmentNoticesByTitle(title: String): Result<List<RecruitmentNotice>, DataError.Database> {
+        return try {
+            val recruitmentNotices = militaryServiceCompanyLocalDataSource.getRecruitmentNoticesByTitle(title)
+            Log.d("결과", "repo - data : $recruitmentNotices, title: $title")
+            return Result.Success(recruitmentNotices.asDomain())
+        } catch (e: HttpException) {
+            when (e.code()) {
+                else -> Result.Error(DataError.Database.UNKNOWN)
             }
         }
     }

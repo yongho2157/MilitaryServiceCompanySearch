@@ -16,4 +16,8 @@ class MilitaryServiceCompanyLocalDataSourceImpl @Inject constructor(
         return recruitmentNoticeDao.getRecruitmentNotices()
     }
 
+    override suspend fun getRecruitmentNoticesByTitle(title: String): List<RecruitmentNoticeEntity> {
+        return recruitmentNoticeDao.getRecruitmentNoticesByTitle(title)
+    }
+
 }

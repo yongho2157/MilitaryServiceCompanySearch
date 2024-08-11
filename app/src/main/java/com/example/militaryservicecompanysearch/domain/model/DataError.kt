@@ -7,4 +7,9 @@ sealed interface DataError: Error {
         SERVER_ERROR,
         UNKNOWN
     }
+
+    enum class Database: DataError {
+        UNKNOWN
+    }
+
 }
