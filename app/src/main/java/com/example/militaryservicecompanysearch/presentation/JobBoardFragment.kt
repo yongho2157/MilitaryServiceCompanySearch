@@ -1,11 +1,9 @@
 package com.example.militaryservicecompanysearch.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -32,23 +30,14 @@ class JobBoardFragment : Fragment() {
 
         binding.apply {
             vm = viewModel
+            lifecycleOwner = this@JobBoardFragment
             adapter = RecruitmentNoticeAdapter()
         }
 
-//        viewModel.getRecruitmentNotices()
-
-
-//        val recruitmentNoticeAdapter = RecruitmentNoticeAdapter()
-//        recruitmentNoticeAdapter.setOnItemClickListener {
-//            val action = JobBoardFragmentDirections.actionFragmentJobBoardToFragmentJobDetail(it)
-//            findNavController().navigate(action)
-//        }
-//
-//        binding.recyclerViewRecruitmentNotice.adapter = recruitmentNoticeAdapter
-//
-//        viewModel.recruitmentNoticeList.observe(requireActivity()) {
-//            recruitmentNoticeAdapter.addAll(it)
-//        }
+        binding.adapter?.setOnItemClickListener {
+            val action = JobBoardFragmentDirections.actionFragmentJobBoardToFragmentJobDetail(it)
+            findNavController().navigate(action)
+        }
 
     }
 

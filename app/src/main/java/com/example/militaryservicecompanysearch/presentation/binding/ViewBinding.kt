@@ -6,8 +6,8 @@ import com.example.militaryservicecompanysearch.presentation.MainViewModel
 
 object ViewBinding {
 
-    @JvmStatic
     @BindingAdapter("app:setOnQueryTextListener")
+    @JvmStatic
     fun setOnQueryTextListener(searchView: SearchView, viewModel: MainViewModel) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

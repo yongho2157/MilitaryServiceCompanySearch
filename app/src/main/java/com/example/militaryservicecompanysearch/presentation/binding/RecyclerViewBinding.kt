@@ -1,6 +1,5 @@
 package com.example.militaryservicecompanysearch.presentation.binding
 
-import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
