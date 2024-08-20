@@ -17,6 +17,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragment_job_board_to_sectorSelectionFragment"
+            app:destination="@id/sectorSelectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_job_detail"
@@ -27,5 +30,10 @@
             android:name="RecruitmentNotice"
             app:argType="com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice" />
     </fragment>
+    <fragment
+        android:id="@+id/sectorSelectionFragment"
+        android:name="com.example.militaryservicecompanysearch.presentation.SectorSelectionFragment"
+        android:label="@string/sector_selection"
+        tools:layout="@layout/fragment_sector_selection" />
 
 </navigation>

@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initNavigation()
+        supportActionBar?.hide()
     }
 
     private fun initNavigation() {

@@ -2,4 +2,43 @@
     <string name="app_name">MilitaryServiceCompanySearch</string>
     <string name="job_board">채용공고</string>
     <string name="job_detail">채용 상세</string>
+    <string name="sector_selection">업종선택</string>
+
+    <string-array name="sector_types">
+        <item>철강</item>
+        <item>기계</item>
+        <item>전기</item>
+        <item>전자</item>
+        <item>화학</item>
+        <item>섬유</item>
+        <item>신발</item>
+        <item>시멘요업</item>
+        <item>생활용품</item>
+        <item>통신기기</item>
+        <item>정보처리</item>
+        <item>게임S/W</item>
+        <item>영상게임</item>
+        <item>의료의약</item>
+        <item>식음료</item>
+        <item>농산물가공</item>
+        <item>수산물가공</item>
+        <item>임산물가공</item>
+        <item>동물약품</item>
+        <item>애니메이션</item>
+        <item>석탄채굴</item>
+        <item>일반광물채굴</item>
+        <item>선광제련</item>
+        <item>에너지</item>
+        <item>국내건설</item>
+        <item>국외건설</item>
+        <item>내항화물</item>
+        <item>외항화물</item>
+        <item>내항선박관리</item>
+        <item>외항선박관리</item>
+        <item>근해</item>
+        <item>원양</item>
+        <item>전체</item>
+    </string-array>
+
+    <string name="sector_selection_title">업종 선택</string>
 </resources>
