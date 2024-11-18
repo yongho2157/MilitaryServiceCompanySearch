@@ -17,4 +17,7 @@ interface RecruitmentNoticeDao {
 
     @Query("SELECT * FROM recruitment_notices WHERE recruitment_title LIKE '%' || :title || '%'")
     suspend fun getRecruitmentNoticesByTitle(title: String): List<RecruitmentNoticeEntity>
+
+    @Query("SELECT * FROM recruitment_notices WHERE sector IN (:sectors)")
+    suspend fun getRecruitmentNoticesBySectors(sectors: List<String>): List<RecruitmentNoticeEntity>
 }

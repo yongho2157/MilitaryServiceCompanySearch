@@ -10,4 +10,6 @@ interface MilitaryServiceCompanyRepository {
 
     suspend fun getRecruitmentNoticesByTitle(title: String): Result<List<RecruitmentNotice>, DataError.Database>
 
+    suspend fun getRecruitmentNoticesBySectors(sectors: List<String>): Result<List<RecruitmentNotice>, DataError.Database>
+
 }

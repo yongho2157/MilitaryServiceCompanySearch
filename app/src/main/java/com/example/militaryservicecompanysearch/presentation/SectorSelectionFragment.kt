@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.militaryservicecompanysearch.R
 import com.example.militaryservicecompanysearch.databinding.FragmentSectorSelectionBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 
 class SectorSelectionFragment : Fragment() {
@@ -16,6 +18,7 @@ class SectorSelectionFragment : Fragment() {
     private var _binding: FragmentSectorSelectionBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by activityViewModels()
+    private val selectedChips = mutableSetOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +33,16 @@ class SectorSelectionFragment : Fragment() {
 
         setupCloseButton()
         setupSectorChips()
-        observeSelectedSectors()
+
+        viewModel.selectedSectors.observe(viewLifecycleOwner) { sectors ->
+            updateChipsSelection(sectors)
+        }
+        binding.resetSectorButton.setOnClickListener {
+            resetSectors()
+        }
+        binding.submitSectorButton.setOnClickListener {
+            submitSectors()
+        }
     }
 
     private fun setupSectorChips() {
@@ -40,11 +52,25 @@ class SectorSelectionFragment : Fragment() {
                 isCheckable = true
                 isCheckedIconVisible = false
 
+                // selector로 정의한 색상 적용
+                chipBackgroundColor = ContextCompat.getColorStateList(
+                    requireContext(),
+                    R.color.chip_background_selector
+                )
+
+                // 텍스트 색상도 selector로 적용하고 싶다면
+                setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.chip_text_selector
+                    )
+                )
+
                 setOnClickListener {
                     if (isChecked) {
-                        viewModel.addSector(sector)
+                        selectedChips.add(text.toString())
                     } else {
-                        viewModel.removeSector(sector)
+                        selectedChips.remove(text.toString())
                     }
                 }
             }
@@ -52,9 +78,19 @@ class SectorSelectionFragment : Fragment() {
         }
     }
 
-    private fun observeSelectedSectors() {
-        viewModel.selectedSectors.observe(viewLifecycleOwner) { sectors ->
-            updateChipsSelection(sectors)
+    private fun submitSectors() {
+        viewModel.clearSector()
+        selectedChips.forEach { sector ->
+            viewModel.addSector(sector)
+        }
+        findNavController().popBackStack()
+    }
+
+    private fun resetSectors() {
+        selectedChips.clear()
+        for (i in 0 until binding.chipGroup.childCount) {
+            val chip = binding.chipGroup.getChildAt(i) as? Chip
+            chip?.isChecked = false
         }
     }
 
@@ -76,9 +112,18 @@ class SectorSelectionFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_view)?.visibility =
+            View.GONE
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_view)?.visibility =
+            View.VISIBLE
         _binding = null
     }
 
 }
+

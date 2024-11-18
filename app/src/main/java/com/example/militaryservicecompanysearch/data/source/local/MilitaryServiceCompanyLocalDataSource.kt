@@ -10,4 +10,6 @@ interface MilitaryServiceCompanyLocalDataSource {
 
     suspend fun getRecruitmentNoticesByTitle(title: String): List<RecruitmentNoticeEntity>
 
+    suspend fun getRecruitmentNoticesBySectors(sectors: List<String>): List<RecruitmentNoticeEntity>
+
 }

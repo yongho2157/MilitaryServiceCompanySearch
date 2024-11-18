@@ -47,4 +47,16 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getRecruitmentNoticesBySectors(sectors: List<String>): Result<List<RecruitmentNotice>, DataError.Database> {
+        return try {
+            val recruitmentNotices = militaryServiceCompanyLocalDataSource.getRecruitmentNoticesBySectors(sectors)
+            Log.d("결과", "repo - data : $recruitmentNotices, title: $sectors")
+            return Result.Success(recruitmentNotices.asDomain())
+        } catch (e: HttpException) {
+            when (e.code()) {
+                else -> Result.Error(DataError.Database.UNKNOWN)
+            }
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanysearch.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,17 +57,29 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun getRecruitmentNoticesBySectors(sectors: List<String>) {
+        viewModelScope.launch {
+            when (val result = militaryServiceCompanyRepository.getRecruitmentNoticesBySectors(sectors)) {
+                is Result.Error -> TODO()
+                is Result.Success -> {
+                    _recruitmentNoticeList.value = result.data
+                }
+            }
+        }
+    }
+
     fun addSector(type: String) {
         _selectedSectors.value?.let { currentList ->
             if (!currentList.contains(type)) {
+                Log.d("결과", "addSector: $type")
                 _selectedSectors.value = currentList + type
             }
         }
     }
 
-    fun removeSector(type: String) {
+    fun clearSector() {
         _selectedSectors.value?.let { currentList ->
-            _selectedSectors.value = currentList - type  // 새로운 리스트 생성
+            _selectedSectors.value = emptyList()
         }
     }
 
