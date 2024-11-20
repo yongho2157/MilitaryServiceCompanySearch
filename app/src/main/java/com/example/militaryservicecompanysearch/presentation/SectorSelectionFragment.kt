@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.militaryservicecompanysearch.R
 import com.example.militaryservicecompanysearch.databinding.FragmentSectorSelectionBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.launch
 
 class SectorSelectionFragment : Fragment() {
 
@@ -34,9 +38,14 @@ class SectorSelectionFragment : Fragment() {
         setupCloseButton()
         setupSectorChips()
 
-        viewModel.selectedSectors.observe(viewLifecycleOwner) { sectors ->
-            updateChipsSelection(sectors)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.selectedSectors.collect { sectors ->
+                    updateChipsSelection(sectors)
+                }
+            }
         }
+
         binding.resetSectorButton.setOnClickListener {
             resetSectors()
         }

@@ -5,11 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.militaryservicecompanysearch.domain.model.DataError
 import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 import com.example.militaryservicecompanysearch.domain.model.Result
 import com.example.militaryservicecompanysearch.domain.repository.MilitaryServiceCompanyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,48 +24,38 @@ class MainViewModel @Inject constructor(
     private val militaryServiceCompanyRepository: MilitaryServiceCompanyRepository
 ) : ViewModel() {
     private val _recruitmentNoticeList = MutableLiveData<List<RecruitmentNotice>>(emptyList())
-    val recruitmentNoticeList : LiveData<List<RecruitmentNotice>>
+    val recruitmentNoticeList: LiveData<List<RecruitmentNotice>>
         get() = _recruitmentNoticeList
 
-    private val _selectedSectors = MutableLiveData<List<String>>(emptyList())
-    val selectedSectors: LiveData<List<String>> = _selectedSectors
+    private val _selectedSectors = MutableStateFlow<List<String>>(emptyList())
+    val selectedSectors: StateFlow<List<String>> = _selectedSectors
+
+    private val _allSellUiState: MutableStateFlow<PagingData<RecruitmentNotice>> =
+        MutableStateFlow(PagingData.empty())
+    val allSellUiState = _allSellUiState.asStateFlow()
+
 
     init {
-        getRecruitmentNotices()
+        fetchRecruitmentNotices()
     }
 
-    private fun getRecruitmentNotices() {
+    private fun fetchRecruitmentNotices() {
         viewModelScope.launch {
-            when (val result = militaryServiceCompanyRepository.getRecruitmentNotices()) {
-                is Result.Error -> {
-                    when (result.error) {
-                        DataError.Network.REQUEST_TIMEOUT -> TODO()
-                        DataError.Network.NO_INTERNET -> TODO()
-                        DataError.Network.SERVER_ERROR -> TODO()
-                        DataError.Network.UNKNOWN -> TODO()
+            militaryServiceCompanyRepository
+                .getRecruitmentNoticesTest()
+                .cachedIn(viewModelScope)
+                .collect { result ->
+                    _allSellUiState.update {
+                        result
                     }
                 }
-                is Result.Success -> {
-                    _recruitmentNoticeList.value = result.data
-                }
-            }
         }
     }
 
     fun getRecruitmentNoticesByTitle(title: String) {
         viewModelScope.launch {
-            when (val result = militaryServiceCompanyRepository.getRecruitmentNoticesByTitle(title)) {
-                is Result.Error -> TODO()
-                is Result.Success -> {
-                    _recruitmentNoticeList.value = result.data
-                }
-            }
-        }
-    }
-
-    fun getRecruitmentNoticesBySectors(sectors: List<String>) {
-        viewModelScope.launch {
-            when (val result = militaryServiceCompanyRepository.getRecruitmentNoticesBySectors(sectors)) {
+            when (val result =
+                militaryServiceCompanyRepository.getRecruitmentNoticesByTitle(title)) {
                 is Result.Error -> TODO()
                 is Result.Success -> {
                     _recruitmentNoticeList.value = result.data
@@ -69,16 +65,15 @@ class MainViewModel @Inject constructor(
     }
 
     fun addSector(type: String) {
-        _selectedSectors.value?.let { currentList ->
+        _selectedSectors.value.let { currentList ->
             if (!currentList.contains(type)) {
-                Log.d("결과", "addSector: $type")
                 _selectedSectors.value = currentList + type
             }
         }
     }
 
     fun clearSector() {
-        _selectedSectors.value?.let { currentList ->
+        _selectedSectors.value.let {
             _selectedSectors.value = emptyList()
         }
     }

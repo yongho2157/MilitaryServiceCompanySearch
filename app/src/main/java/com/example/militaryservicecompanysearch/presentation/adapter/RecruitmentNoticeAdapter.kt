@@ -2,12 +2,12 @@ package com.example.militaryservicecompanysearch.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.example.militaryservicecompanysearch.databinding.RecruitmentNoticeItemBinding
 import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 
-class RecruitmentNoticeAdapter : ListAdapter<RecruitmentNotice, RecruitmentNoticeViewHolder>(diffUtil) {
+class RecruitmentNoticeAdapter : PagingDataAdapter<RecruitmentNotice, RecruitmentNoticeViewHolder>(diffUtil) {
 
     private var onItemClickListener: ((RecruitmentNotice) -> Unit)? = null
 
@@ -18,9 +18,15 @@ class RecruitmentNoticeAdapter : ListAdapter<RecruitmentNotice, RecruitmentNotic
 
     override fun onBindViewHolder(holder: RecruitmentNoticeViewHolder, position: Int) {
         val recruitmentNotice = getItem(position)
-        holder.bind(recruitmentNotice)
+        if (recruitmentNotice != null) {
+            holder.bind(recruitmentNotice)
+        }
         holder.itemView.setOnClickListener {
-            onItemClickListener?.let { it(recruitmentNotice) }
+            onItemClickListener?.let {
+                if (recruitmentNotice != null) {
+                    it(recruitmentNotice)
+                }
+            }
         }
     }
 

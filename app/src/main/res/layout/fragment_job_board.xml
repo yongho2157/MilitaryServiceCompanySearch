@@ -38,13 +38,12 @@
             app:layout_constraintStart_toStartOf="parent"
             android:text="업종선택"
             app:layout_constraintBottom_toTopOf="@id/recycler_view_recruitment_notice"/>
-
+        <!--            app:submitList="@{vm.recruitmentNoticeList}"-->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_recruitment_notice"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:adapter="@{adapter}"
-            app:submitList="@{vm.recruitmentNoticeList}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chip_sector_selection" />

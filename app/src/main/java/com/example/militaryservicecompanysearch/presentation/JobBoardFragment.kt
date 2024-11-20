@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.militaryservicecompanysearch.databinding.FragmentJobBoardBinding
 import com.example.militaryservicecompanysearch.presentation.adapter.RecruitmentNoticeAdapter
+import kotlinx.coroutines.launch
 
 class JobBoardFragment : Fragment() {
 
@@ -42,6 +46,14 @@ class JobBoardFragment : Fragment() {
         binding.adapter?.setOnItemClickListener {
             val action = JobBoardFragmentDirections.actionFragmentJobBoardToFragmentJobDetail(it)
             findNavController().navigate(action)
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allSellUiState.collect {
+                    binding.adapter?.submitData(it)
+                }
+            }
         }
 
     }

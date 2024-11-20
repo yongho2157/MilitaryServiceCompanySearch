@@ -12,11 +12,4 @@ object RecyclerViewBinding {
     fun bindAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
         view.adapter = adapter
     }
-
-    @BindingAdapter("submitList")
-    @JvmStatic
-    fun bindSubmitList(view: RecyclerView, itemList: List<RecruitmentNotice>) {
-        val adapter = view.adapter as? RecruitmentNoticeAdapter
-        adapter?.submitList(itemList.toMutableList())
-    }
 }
