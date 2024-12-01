@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class MilitaryServiceCompanyRemoteDataSourceImpl @Inject constructor(private val openDataService: OpenDataService) :
     MilitaryServiceCompanyRemoteDataSource {
-    override suspend fun fetchRecruitmentNotices(pageNo: Int): RecruitmentNoticeResponse =
-        openDataService.getRecruitmentNotices(10, pageNo, BuildConfig.SERVICE_KEY)
+    override suspend fun fetchRecruitmentNotices(numOfRows: Int, pageNo: Int): RecruitmentNoticeResponse =
+        openDataService.getRecruitmentNotices(numOfRows, pageNo, BuildConfig.SERVICE_KEY)
 }

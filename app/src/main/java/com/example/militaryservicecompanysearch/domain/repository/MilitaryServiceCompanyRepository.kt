@@ -7,7 +7,8 @@ import com.example.militaryservicecompanysearch.domain.model.Result
 import kotlinx.coroutines.flow.Flow
 
 interface MilitaryServiceCompanyRepository {
-    suspend fun getRecruitmentNoticesByTitle(title: String): Result<List<RecruitmentNotice>, DataError.Database>
-    suspend fun getRecruitmentNotices(sectors: List<String>): Result<List<RecruitmentNotice>, DataError.Network>
-    suspend fun getRecruitmentNoticesTest(): Flow<PagingData<RecruitmentNotice>>
+    fun getRecruitmentNoticesByTitle(title: String, sectors: List<String>): Flow<PagingData<RecruitmentNotice>>
+    fun getRecruitmentNoticesBySector(sectors: List<String>): Flow<PagingData<RecruitmentNotice>>
+    suspend fun getRecruitmentNotices(): Result<List<RecruitmentNotice>, DataError.Network>
+    fun getLocalRecruitmentNotices(): Flow<PagingData<RecruitmentNotice>>
 }

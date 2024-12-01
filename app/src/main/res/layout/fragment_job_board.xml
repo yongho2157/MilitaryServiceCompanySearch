@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.example.militaryservicecompanysearch.presentation.MainViewModel" />
@@ -23,22 +24,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:setOnQueryTextListener="@{vm}"
             app:iconifiedByDefault="false"
             app:layout_constraintBottom_toTopOf="@id/recycler_view_recruitment_notice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setOnQueryTextListener="@{vm}" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_sector_selection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/search_view"
-            app:layout_constraintStart_toStartOf="parent"
             android:text="업종선택"
-            app:layout_constraintBottom_toTopOf="@id/recycler_view_recruitment_notice"/>
-        <!--            app:submitList="@{vm.recruitmentNoticeList}"-->
+            app:layout_constraintBottom_toTopOf="@id/recycler_view_recruitment_notice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_view" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_recruitment_notice"
             android:layout_width="match_parent"

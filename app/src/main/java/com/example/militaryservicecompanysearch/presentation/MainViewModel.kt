@@ -1,6 +1,5 @@
 package com.example.militaryservicecompanysearch.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +14,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,35 +32,63 @@ class MainViewModel @Inject constructor(
         MutableStateFlow(PagingData.empty())
     val allSellUiState = _allSellUiState.asStateFlow()
 
-
     init {
-        fetchRecruitmentNotices()
+        getRecruitmentNotices()
+        getLocalRecruitmentNotices()
     }
 
-    private fun fetchRecruitmentNotices() {
+    private fun getRecruitmentNotices() {
         viewModelScope.launch {
-            militaryServiceCompanyRepository
-                .getRecruitmentNoticesTest()
-                .cachedIn(viewModelScope)
-                .collect { result ->
-                    _allSellUiState.update {
-                        result
+            when (val result = militaryServiceCompanyRepository.getRecruitmentNotices()) {
+                is Result.Error -> {
+                    when (result.error) {
+                        DataError.Network.REQUEST_TIMEOUT -> TODO()
+                        DataError.Network.NO_INTERNET -> TODO()
+                        DataError.Network.SERVER_ERROR -> TODO()
+                        DataError.Network.UNKNOWN -> TODO()
                     }
                 }
-        }
-    }
 
-    fun getRecruitmentNoticesByTitle(title: String) {
-        viewModelScope.launch {
-            when (val result =
-                militaryServiceCompanyRepository.getRecruitmentNoticesByTitle(title)) {
-                is Result.Error -> TODO()
                 is Result.Success -> {
                     _recruitmentNoticeList.value = result.data
                 }
             }
         }
     }
+
+    private fun getLocalRecruitmentNotices() {
+        viewModelScope.launch {
+            militaryServiceCompanyRepository
+                .getLocalRecruitmentNotices()
+                .cachedIn(viewModelScope)
+                .collect {
+                    _allSellUiState.value = it
+                }
+        }
+    }
+
+    fun getRecruitmentNoticesByTitle(title: String) {
+        viewModelScope.launch {
+            militaryServiceCompanyRepository
+                .getRecruitmentNoticesByTitle(title, _selectedSectors.value)
+                .cachedIn(viewModelScope)
+                .collect {
+                    _allSellUiState.value = it
+                }
+        }
+    }
+
+    fun getRecruitmentNoticesBySector(sectors: List<String>) {
+        viewModelScope.launch {
+            militaryServiceCompanyRepository
+                .getRecruitmentNoticesBySector(sectors)
+                .cachedIn(viewModelScope)
+                .collect {
+                    _allSellUiState.value = it
+                }
+        }
+    }
+
 
     fun addSector(type: String) {
         _selectedSectors.value.let { currentList ->

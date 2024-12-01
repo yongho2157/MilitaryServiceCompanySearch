@@ -1,6 +1,7 @@
 package com.example.militaryservicecompanysearch.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.militaryservicecompanysearch.databinding.FragmentJobBoardBinding
 import com.example.militaryservicecompanysearch.presentation.adapter.RecruitmentNoticeAdapter
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class JobBoardFragment : Fragment() {
@@ -39,7 +41,8 @@ class JobBoardFragment : Fragment() {
         }
 
         binding.chipSectorSelection.setOnClickListener {
-            val action = JobBoardFragmentDirections.actionFragmentJobBoardToSectorSelectionFragment()
+            val action =
+                JobBoardFragmentDirections.actionFragmentJobBoardToSectorSelectionFragment()
             findNavController().navigate(action)
         }
 
@@ -48,9 +51,9 @@ class JobBoardFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.allSellUiState.collect {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allSellUiState.collectLatest {
                     binding.adapter?.submitData(it)
                 }
             }

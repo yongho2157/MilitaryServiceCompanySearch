@@ -2,8 +2,6 @@ package com.example.militaryservicecompanysearch.presentation.binding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
-import com.example.militaryservicecompanysearch.presentation.adapter.RecruitmentNoticeAdapter
 
 object RecyclerViewBinding {
 

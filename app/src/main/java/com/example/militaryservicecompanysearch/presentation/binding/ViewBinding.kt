@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanysearch.presentation.binding
 
+import android.util.Log
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.BindingAdapter
 import com.example.militaryservicecompanysearch.presentation.MainViewModel
@@ -11,14 +12,17 @@ object ViewBinding {
     fun setOnQueryTextListener(searchView: SearchView, viewModel: MainViewModel) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { keyword ->
-                    viewModel.getRecruitmentNoticesByTitle(keyword)
+                query?.let { title ->
+                    viewModel.getRecruitmentNoticesByTitle(title)
                 }
-                return false
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+                newText?.let { title ->
+                    viewModel.getRecruitmentNoticesByTitle(title)
+                }
+                return true
             }
 
         })

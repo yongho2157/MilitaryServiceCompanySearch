@@ -92,6 +92,7 @@ class SectorSelectionFragment : Fragment() {
         selectedChips.forEach { sector ->
             viewModel.addSector(sector)
         }
+        viewModel.getRecruitmentNoticesBySector(selectedChips.toList())
         findNavController().popBackStack()
     }
 

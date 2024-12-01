@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanysearch.data.db
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,11 +14,20 @@ interface RecruitmentNoticeDao {
     suspend fun insertRecruitmentNotices(recruitmentNotices: List<RecruitmentNoticeEntity>)
 
     @Query("SELECT * FROM recruitment_notices")
-    suspend fun getRecruitmentNotices(): List<RecruitmentNoticeEntity>
+    suspend fun getAllRecruitmentNotices(): List<RecruitmentNoticeEntity>
+
+    @Query("SELECT * FROM recruitment_notices")
+    fun getRecruitmentNotices(): PagingSource<Int, RecruitmentNoticeEntity>
+
+    @Query("SELECT * FROM recruitment_notices WHERE recruitment_title LIKE '%' || :title || '%' and sector IN (:sectors)")
+    fun getRecruitmentNoticesByTitle(title: String, sectors: List<String>): PagingSource<Int, RecruitmentNoticeEntity>
 
     @Query("SELECT * FROM recruitment_notices WHERE recruitment_title LIKE '%' || :title || '%'")
-    suspend fun getRecruitmentNoticesByTitle(title: String): List<RecruitmentNoticeEntity>
+    fun getRecruitmentNoticesByTitle(title: String): PagingSource<Int, RecruitmentNoticeEntity>
 
-    @Query("SELECT * FROM recruitment_notices WHERE sector IN (:sectors)")
-    suspend fun getRecruitmentNoticesBySectors(sectors: List<String>): List<RecruitmentNoticeEntity>
+    @Query("SELECT * FROM recruitment_notices WHERE (:sectors IS NULL OR sector = '') OR sector IN (:sectors)")
+    fun getRecruitmentNoticesBySectors(sectors: List<String>): PagingSource<Int, RecruitmentNoticeEntity>
+
+    @Query("DELETE FROM recruitment_notices")
+    suspend fun clearRecruitmentNotices()
 }
