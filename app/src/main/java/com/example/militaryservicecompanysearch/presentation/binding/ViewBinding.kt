@@ -1,6 +1,5 @@
 package com.example.militaryservicecompanysearch.presentation.binding
 
-import android.util.Log
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.BindingAdapter
 import com.example.militaryservicecompanysearch.presentation.MainViewModel

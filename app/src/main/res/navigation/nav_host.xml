@@ -39,5 +39,10 @@
         android:name="com.example.militaryservicecompanysearch.presentation.SectorSelectionFragment"
         android:label="@string/sector_selection"
         tools:layout="@layout/fragment_sector_selection" />
+    <fragment
+        android:id="@+id/fragment_wish_recruitment_notice"
+        android:name="com.example.militaryservicecompanysearch.presentation.WishRecruitmentNoticeFragment"
+        android:label="@string/wish_recruitment_notice"
+        tools:layout="@layout/fragment_wish_recruitment_notice" />
 
 </navigation>

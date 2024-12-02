@@ -70,5 +70,7 @@ data class RecruitmentNoticeEntity(
     @ColumnInfo(name = "military_service_type")
     val militaryServiceType: String, // 요원 구분명
     @ColumnInfo(name = "valid_flag")
-    val validFlag: String // 유효 여부
+    val validFlag: String, // 유효 여부
+    @ColumnInfo(name = "isBookmarked")
+    val isBookmarked: Boolean = false
 )

@@ -22,7 +22,10 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
     private val militaryServiceCompanyLocalDataSource: MilitaryServiceCompanyLocalDataSource
 ) : MilitaryServiceCompanyRepository {
 
-    override fun getRecruitmentNoticesByTitle(title: String, sectors: List<String>): Flow<PagingData<RecruitmentNotice>> {
+    override fun getRecruitmentNoticesByTitle(
+        title: String,
+        sectors: List<String>
+    ): Flow<PagingData<RecruitmentNotice>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
@@ -32,7 +35,10 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
                 if (title.isEmpty()) {
                     militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices()
                 } else {
-                    militaryServiceCompanyLocalDataSource.getRecruitmentNoticesByTitle(title, sectors)
+                    militaryServiceCompanyLocalDataSource.getRecruitmentNoticesByTitle(
+                        title,
+                        sectors
+                    )
                 }
             }
         ).flow
@@ -62,7 +68,8 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
 
     override suspend fun getRecruitmentNotices(): Result<List<RecruitmentNotice>, DataError.Network> {
         return try {
-            val recruitmentNotices = militaryServiceCompanyLocalDataSource.getAllRecruitmentNotices()
+            val recruitmentNotices =
+                militaryServiceCompanyLocalDataSource.getAllRecruitmentNotices()
             if (recruitmentNotices.isEmpty()) {
                 val countResponse = militaryServiceCompanyRemoteDataSource
                     .fetchRecruitmentNotices(numOfRows = 1, pageNo = 1).body.totalCount
@@ -98,4 +105,15 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
             }
     }
 
+    override fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNotice>> {
+        return militaryServiceCompanyLocalDataSource
+            .getBookmarkedRecruitmentNotices()
+            .map { recruitmentNotices ->
+                recruitmentNotices.asDomain()
+            }
+    }
+
+    override suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean) {
+        militaryServiceCompanyLocalDataSource.updateBookmarkStatus(recruitmentNo = recruitmentNo, isBookmarked = isBookmarked)
+    }
 }

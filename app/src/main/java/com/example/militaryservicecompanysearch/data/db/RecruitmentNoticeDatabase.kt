@@ -7,7 +7,7 @@ import com.example.militaryservicecompanysearch.data.model.RemoteKeysEntity
 
 @Database(
     entities = [RecruitmentNoticeEntity::class, RemoteKeysEntity::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class RecruitmentNoticeDatabase : RoomDatabase() {

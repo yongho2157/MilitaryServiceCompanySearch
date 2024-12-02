@@ -38,7 +38,7 @@ class SectorSelectionFragment : Fragment() {
         setupCloseButton()
         setupSectorChips()
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.selectedSectors.collect { sectors ->
                     updateChipsSelection(sectors)

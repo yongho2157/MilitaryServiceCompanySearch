@@ -1,6 +1,5 @@
 package com.example.militaryservicecompanysearch.data.mapper
 
-
 import com.example.militaryservicecompanysearch.data.model.RecruitmentNoticeEntity
 import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 
@@ -40,7 +39,8 @@ object RecruitmentNoticeEntityMapper : EntityMapper<RecruitmentNotice, Recruitme
                 personnel = recruitmentNotice.personnel ?: "",
                 militaryServiceTypeCode = recruitmentNotice.militaryServiceTypeCode ?: "",
                 militaryServiceType = recruitmentNotice.militaryServiceType ?: "",
-                validFlag = recruitmentNotice.validFlag ?: ""
+                validFlag = recruitmentNotice.validFlag ?: "",
+                isBookmarked = recruitmentNotice.isBookmarked
             )
         }
     }
@@ -79,7 +79,8 @@ object RecruitmentNoticeEntityMapper : EntityMapper<RecruitmentNotice, Recruitme
                 personnel = recruitmentNoticeEntity.personnel,
                 militaryServiceTypeCode = recruitmentNoticeEntity.militaryServiceTypeCode,
                 militaryServiceType = recruitmentNoticeEntity.militaryServiceType,
-                validFlag = recruitmentNoticeEntity.validFlag
+                validFlag = recruitmentNoticeEntity.validFlag,
+                isBookmarked = recruitmentNoticeEntity.isBookmarked
             )
         }
     }
@@ -118,7 +119,8 @@ object RecruitmentNoticeEntityMapper : EntityMapper<RecruitmentNotice, Recruitme
             personnel = domain.personnel ?: "",
             militaryServiceTypeCode = domain.militaryServiceTypeCode ?: "",
             militaryServiceType = domain.militaryServiceType ?: "",
-            validFlag = domain.validFlag ?: ""
+            validFlag = domain.validFlag ?: "",
+            isBookmarked = domain.isBookmarked
         )
     }
 
@@ -155,7 +157,8 @@ object RecruitmentNoticeEntityMapper : EntityMapper<RecruitmentNotice, Recruitme
             personnel = entity.personnel,
             militaryServiceTypeCode = entity.militaryServiceTypeCode,
             militaryServiceType = entity.militaryServiceType,
-            validFlag = entity.validFlag
+            validFlag = entity.validFlag,
+            isBookmarked = entity.isBookmarked
         )
     }
 }

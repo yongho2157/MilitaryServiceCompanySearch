@@ -11,4 +11,6 @@ interface MilitaryServiceCompanyRepository {
     fun getRecruitmentNoticesBySector(sectors: List<String>): Flow<PagingData<RecruitmentNotice>>
     suspend fun getRecruitmentNotices(): Result<List<RecruitmentNotice>, DataError.Network>
     fun getLocalRecruitmentNotices(): Flow<PagingData<RecruitmentNotice>>
+    fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNotice>>
+    suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean)
 }

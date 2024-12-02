@@ -3,6 +3,8 @@ package com.example.militaryservicecompanysearch.data.source.local
 import androidx.paging.PagingSource
 import com.example.militaryservicecompanysearch.data.db.RecruitmentNoticeDao
 import com.example.militaryservicecompanysearch.data.model.RecruitmentNoticeEntity
+import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class MilitaryServiceCompanyLocalDataSourceImpl @Inject constructor(
@@ -35,6 +37,14 @@ class MilitaryServiceCompanyLocalDataSourceImpl @Inject constructor(
         } else {
             recruitmentNoticeDao.getRecruitmentNoticesBySectors(sectors)
         }
+    }
+
+    override fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNoticeEntity>> {
+        return recruitmentNoticeDao.getBookmarkedRecruitmentNotices()
+    }
+
+    override suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean) {
+        recruitmentNoticeDao.updateBookmarkStatus(recruitmentNo = recruitmentNo, isBookmarked = isBookmarked)
     }
 
 }

@@ -5,4 +5,8 @@
         android:id="@+id/fragment_job_board"
         android:title="@string/job_board" />
 
+    <item
+        android:id="@+id/fragment_wish_recruitment_notice"
+        android:title="@string/wish_recruitment_notice" />
+
 </menu>

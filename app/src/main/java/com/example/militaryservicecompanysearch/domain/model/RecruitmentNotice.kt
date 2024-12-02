@@ -71,5 +71,7 @@ data class RecruitmentNotice(
     @PropertyElement(name = "yowonGbcdNm")
     val militaryServiceType: String?, // 요원 구분명
     @PropertyElement(name = "yuhyoYn")
-    val validFlag: String? // 유효 여부
+    val validFlag: String?, // 유효 여부
+    @PropertyElement(name = "isBookmarked")
+    val isBookmarked: Boolean = false
 ): Parcelable
