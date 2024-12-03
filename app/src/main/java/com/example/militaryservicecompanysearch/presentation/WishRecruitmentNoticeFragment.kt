@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.militaryservicecompanysearch.databinding.FragmentWishRecruitmentNoticeBinding
 import com.example.militaryservicecompanysearch.presentation.adapter.WishRecruitmentNoticeAdapter
 import kotlinx.coroutines.launch
@@ -44,7 +45,7 @@ class WishRecruitmentNoticeFragment : Fragment() {
                     is WishRecruitmentNoticeUiState.Loading -> {
                         binding.contentLoadingProgressBar.show()
                     }
-                    WishRecruitmentNoticeUiState.Empty -> {
+                    is WishRecruitmentNoticeUiState.Empty -> {
                         binding.contentLoadingProgressBar.hide()
                         binding.emptyTextView.visibility = View.VISIBLE
                     }
@@ -55,6 +56,11 @@ class WishRecruitmentNoticeFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        binding.adapter?.setOnItemClickListener {
+            val action = WishRecruitmentNoticeFragmentDirections.actionFragmentWishRecruitmentNoticeToFragmentJobDetail(it)
+            findNavController().navigate(action)
         }
     }
 

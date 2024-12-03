@@ -43,6 +43,10 @@
         android:id="@+id/fragment_wish_recruitment_notice"
         android:name="com.example.militaryservicecompanysearch.presentation.WishRecruitmentNoticeFragment"
         android:label="@string/wish_recruitment_notice"
-        tools:layout="@layout/fragment_wish_recruitment_notice" />
+        tools:layout="@layout/fragment_wish_recruitment_notice" >
+        <action
+            android:id="@+id/action_fragment_wish_recruitment_notice_to_fragment_job_detail"
+            app:destination="@id/fragment_job_detail" />
+    </fragment>
 
 </navigation>
