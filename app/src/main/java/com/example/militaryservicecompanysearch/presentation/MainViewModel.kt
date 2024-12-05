@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.militaryservicecompanysearch.domain.usecase.GetRecruitmentNoticesUseCase
 import com.example.militaryservicecompanysearch.domain.model.DataError
 import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 import com.example.militaryservicecompanysearch.domain.model.Result
@@ -19,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val militaryServiceCompanyRepository: MilitaryServiceCompanyRepository
+    private val militaryServiceCompanyRepository: MilitaryServiceCompanyRepository,
+    private val getRecruitmentNoticesUseCase: GetRecruitmentNoticesUseCase
 ) : ViewModel() {
     private val _recruitmentNoticeList = MutableLiveData<List<RecruitmentNotice>>(emptyList())
     val recruitmentNoticeList: LiveData<List<RecruitmentNotice>>
@@ -27,6 +30,9 @@ class MainViewModel @Inject constructor(
 
     private val _selectedSectors = MutableStateFlow<List<String>>(emptyList())
     val selectedSectors: StateFlow<List<String>> = _selectedSectors
+
+    private val _militaryServiceType = MutableStateFlow<String>("")
+    val militaryServiceType: StateFlow<String> = _militaryServiceType
 
     private val _allSellUiState: MutableStateFlow<PagingData<RecruitmentNotice>> =
         MutableStateFlow(PagingData.empty())
@@ -56,10 +62,16 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun getLocalRecruitmentNotices() {
+    fun getLocalRecruitmentNotices() {
         viewModelScope.launch {
-            militaryServiceCompanyRepository
-                .getLocalRecruitmentNotices()
+            getRecruitmentNoticesUseCase(
+                sectors = _selectedSectors.value,
+                militaryServiceType = _militaryServiceType.value,
+                pagingConfig = PagingConfig(
+                    pageSize = 10,
+                    initialLoadSize = 30
+                )
+            )
                 .cachedIn(viewModelScope)
                 .collect {
                     _allSellUiState.value = it
@@ -70,7 +82,10 @@ class MainViewModel @Inject constructor(
     fun getRecruitmentNoticesByTitle(title: String) {
         viewModelScope.launch {
             militaryServiceCompanyRepository
-                .getRecruitmentNoticesByTitle(title, _selectedSectors.value)
+                .getRecruitmentNoticesByTitle(
+                    title = title,
+                    sectors = _selectedSectors.value
+                )
                 .cachedIn(viewModelScope)
                 .collect {
                     _allSellUiState.value = it
@@ -78,17 +93,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getRecruitmentNoticesBySector(sectors: List<String>) {
-        viewModelScope.launch {
-            militaryServiceCompanyRepository
-                .getRecruitmentNoticesBySector(sectors)
-                .cachedIn(viewModelScope)
-                .collect {
-                    _allSellUiState.value = it
-                }
-        }
+    fun setMilitaryServiceType(type: String) {
+        _militaryServiceType.value = type
     }
-
 
     fun addSector(type: String) {
         _selectedSectors.value.let { currentList ->

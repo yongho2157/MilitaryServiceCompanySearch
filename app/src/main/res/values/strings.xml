@@ -41,5 +41,10 @@
         <item>전체</item>
     </string-array>
 
+    <string-array name="military_service_types">
+        <item>산업기능요원</item>
+        <item>전문연구요원</item>
+        <item>승선근무예비역</item>
+    </string-array>
     <string name="sector_selection_title">업종 선택</string>
 </resources>

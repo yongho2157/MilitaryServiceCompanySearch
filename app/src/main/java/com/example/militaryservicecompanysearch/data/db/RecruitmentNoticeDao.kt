@@ -21,6 +21,12 @@ interface RecruitmentNoticeDao {
     @Query("SELECT * FROM recruitment_notices")
     fun getRecruitmentNotices(): PagingSource<Int, RecruitmentNoticeEntity>
 
+    @Query("SELECT * FROM recruitment_notices WHERE sector IN (:sectors) AND military_service_type_code = :militaryServiceTypeCode")
+    fun getRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int): PagingSource<Int, RecruitmentNoticeEntity>
+
+    @Query("SELECT * FROM recruitment_notices WHERE military_service_type_code = :militaryServiceTypeCode")
+    fun getRecruitmentNoticesByMilitaryServiceTypeCode(militaryServiceTypeCode: Int): PagingSource<Int, RecruitmentNoticeEntity>
+
     @Query("SELECT * FROM recruitment_notices WHERE recruitment_title LIKE '%' || :title || '%' and sector IN (:sectors)")
     fun getRecruitmentNoticesByTitle(title: String, sectors: List<String>): PagingSource<Int, RecruitmentNoticeEntity>
 

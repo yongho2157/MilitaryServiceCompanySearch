@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="vm"
             type="com.example.militaryservicecompanysearch.presentation.MainViewModel" />
@@ -31,23 +30,59 @@
             app:layout_constraintTop_toTopOf="parent"
             app:setOnQueryTextListener="@{vm}" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_sector_selection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="업종선택"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/sector_selection_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            app:boxBackgroundColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/recycler_view_recruitment_notice"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_view" />
+            app:layout_constraintTop_toBottomOf="@id/search_view">
+
+            <AutoCompleteTextView
+                android:id="@+id/sector_selection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="none"
+                android:text="업종선택"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@id/sector_selection_text_input_layout"
+            app:layout_constraintStart_toEndOf="@+id/sector_selection_text_input_layout">
+
+            <AutoCompleteTextView
+                android:id="@+id/military_service_type_auto_complete_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:text="복무형태"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_recruitment_notice"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             app:adapter="@{adapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/chip_sector_selection" />
+            app:layout_constraintTop_toBottomOf="@id/sector_selection_text_input_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

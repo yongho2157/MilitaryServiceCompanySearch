@@ -33,30 +33,13 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = {
                 if (title.isEmpty()) {
-                    militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices()
+                    militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices(sectors, 0)
                 } else {
                     militaryServiceCompanyLocalDataSource.getRecruitmentNoticesByTitle(
                         title,
                         sectors
                     )
                 }
-            }
-        ).flow
-            .map { pagingData ->
-                pagingData.map { recruitmentNoticeEntity ->
-                    recruitmentNoticeEntity.asDomain()
-                }
-            }
-    }
-
-    override fun getRecruitmentNoticesBySector(sectors: List<String>): Flow<PagingData<RecruitmentNotice>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 10,
-                initialLoadSize = 30
-            ),
-            pagingSourceFactory = {
-                militaryServiceCompanyLocalDataSource.getRecruitmentNoticesBySectors(sectors)
             }
         ).flow
             .map { pagingData ->
@@ -90,13 +73,10 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getLocalRecruitmentNotices(): Flow<PagingData<RecruitmentNotice>> {
+    override fun getLocalRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int, pagingConfig: PagingConfig): Flow<PagingData<RecruitmentNotice>> {
         return Pager(
-            config = PagingConfig(
-                pageSize = 10,
-                initialLoadSize = 30
-            ),
-            pagingSourceFactory = { militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices() }
+            config = pagingConfig,
+            pagingSourceFactory = { militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices(sectors, militaryServiceTypeCode) }
         ).flow
             .map { pagingData ->
                 pagingData.map { recruitmentNoticeEntity ->

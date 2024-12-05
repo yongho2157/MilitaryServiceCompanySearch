@@ -1,16 +1,18 @@
 package com.example.militaryservicecompanysearch.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.militaryservicecompanysearch.R
 import com.example.militaryservicecompanysearch.databinding.FragmentJobBoardBinding
 import com.example.militaryservicecompanysearch.presentation.adapter.RecruitmentNoticeAdapter
 import kotlinx.coroutines.flow.collectLatest
@@ -40,7 +42,7 @@ class JobBoardFragment : Fragment() {
             adapter = RecruitmentNoticeAdapter()
         }
 
-        binding.chipSectorSelection.setOnClickListener {
+        binding.sectorSelectionTextInputLayout.setOnClickListener {
             val action =
                 JobBoardFragmentDirections.actionFragmentJobBoardToSectorSelectionFragment()
             findNavController().navigate(action)
@@ -59,6 +61,19 @@ class JobBoardFragment : Fragment() {
             }
         }
 
+        binding.militaryServiceTypeAutoCompleteTextView.doOnTextChanged { text, _, _, _ ->
+            val selectedValue = text.toString()
+            viewModel.setMilitaryServiceType(selectedValue)
+            viewModel.getLocalRecruitmentNotices()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val regionArray = resources.getStringArray(R.array.military_service_types)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.millitary_service_dropdown_menu_item, regionArray)
+        binding.militaryServiceTypeAutoCompleteTextView.setAdapter(arrayAdapter)
     }
 
     override fun onDestroy() {
