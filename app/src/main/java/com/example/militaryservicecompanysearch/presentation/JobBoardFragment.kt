@@ -1,6 +1,7 @@
 package com.example.militaryservicecompanysearch.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +43,7 @@ class JobBoardFragment : Fragment() {
             adapter = RecruitmentNoticeAdapter()
         }
 
-        binding.sectorSelectionTextInputLayout.setOnClickListener {
+        binding.sectorSelection.setOnClickListener {
             val action =
                 JobBoardFragmentDirections.actionFragmentJobBoardToSectorSelectionFragment()
             findNavController().navigate(action)
