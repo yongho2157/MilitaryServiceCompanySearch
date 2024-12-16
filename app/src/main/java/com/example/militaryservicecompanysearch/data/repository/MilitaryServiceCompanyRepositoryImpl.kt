@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanysearch.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -13,6 +14,7 @@ import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 import com.example.militaryservicecompanysearch.domain.model.Result
 import com.example.militaryservicecompanysearch.domain.repository.MilitaryServiceCompanyRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import retrofit2.HttpException
 import javax.inject.Inject
@@ -22,31 +24,25 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
     private val militaryServiceCompanyLocalDataSource: MilitaryServiceCompanyLocalDataSource
 ) : MilitaryServiceCompanyRepository {
 
-    override fun getRecruitmentNoticesByTitle(
-        title: String,
-        sectors: List<String>
-    ): Flow<PagingData<RecruitmentNotice>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 10,
-                initialLoadSize = 30
-            ),
-            pagingSourceFactory = {
-                if (title.isEmpty()) {
-                    militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices(sectors, 0)
-                } else {
-                    militaryServiceCompanyLocalDataSource.getRecruitmentNoticesByTitle(
-                        title,
-                        sectors
-                    )
+    override fun getRecruitmentNoticesByTitle(title: String): Flow<PagingData<RecruitmentNotice>> {
+        return if (title.isEmpty()) {
+            flowOf(PagingData.empty())
+        } else {
+            Pager(
+                config = PagingConfig(
+                    pageSize = 10,
+                    initialLoadSize = 30
+                ),
+                pagingSourceFactory = {
+                    militaryServiceCompanyLocalDataSource.getRecruitmentNoticesByTitle(title)
                 }
-            }
-        ).flow
-            .map { pagingData ->
-                pagingData.map { recruitmentNoticeEntity ->
-                    recruitmentNoticeEntity.asDomain()
+            ).flow
+                .map { pagingData ->
+                    pagingData.map { recruitmentNoticeEntity ->
+                        recruitmentNoticeEntity.asDomain()
+                    }
                 }
-            }
+        }
     }
 
     override suspend fun getRecruitmentNotices(): Result<List<RecruitmentNotice>, DataError.Network> {
@@ -73,10 +69,19 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getLocalRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int, pagingConfig: PagingConfig): Flow<PagingData<RecruitmentNotice>> {
+    override fun getLocalRecruitmentNotices(
+        sectors: List<String>,
+        militaryServiceTypeCode: Int,
+        pagingConfig: PagingConfig
+    ): Flow<PagingData<RecruitmentNotice>> {
         return Pager(
             config = pagingConfig,
-            pagingSourceFactory = { militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices(sectors, militaryServiceTypeCode) }
+            pagingSourceFactory = {
+                militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices(
+                    sectors,
+                    militaryServiceTypeCode
+                )
+            }
         ).flow
             .map { pagingData ->
                 pagingData.map { recruitmentNoticeEntity ->
@@ -94,6 +99,9 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean) {
-        militaryServiceCompanyLocalDataSource.updateBookmarkStatus(recruitmentNo = recruitmentNo, isBookmarked = isBookmarked)
+        militaryServiceCompanyLocalDataSource.updateBookmarkStatus(
+            recruitmentNo = recruitmentNo,
+            isBookmarked = isBookmarked
+        )
     }
 }

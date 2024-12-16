@@ -48,5 +48,14 @@
             android:id="@+id/action_fragment_wish_recruitment_notice_to_fragment_job_detail"
             app:destination="@id/fragment_job_detail" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_job_search"
+        android:name="com.example.militaryservicecompanysearch.presentation.JobSearchFragment"
+        android:label="@string/job_search"
+        tools:layout="@layout/fragment_job_search" >
+        <action
+            android:id="@+id/action_fragment_job_search_to_fragment_job_detail"
+            app:destination="@id/fragment_job_detail" />
+    </fragment>
 
 </navigation>

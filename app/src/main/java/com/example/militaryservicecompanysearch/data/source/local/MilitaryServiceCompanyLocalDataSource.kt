@@ -13,7 +13,7 @@ interface MilitaryServiceCompanyLocalDataSource {
 
     fun getPagedRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int): PagingSource<Int, RecruitmentNoticeEntity>
 
-    fun getRecruitmentNoticesByTitle(title: String, sectors: List<String>): PagingSource<Int, RecruitmentNoticeEntity>
+    fun getRecruitmentNoticesByTitle(title: String): PagingSource<Int, RecruitmentNoticeEntity>
 
     fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNoticeEntity>>
 

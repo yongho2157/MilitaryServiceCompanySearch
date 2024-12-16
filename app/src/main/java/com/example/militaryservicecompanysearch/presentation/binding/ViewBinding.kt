@@ -1,30 +1,20 @@
 package com.example.militaryservicecompanysearch.presentation.binding
 
-import androidx.appcompat.widget.SearchView
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
-import com.example.militaryservicecompanysearch.presentation.MainViewModel
+import com.example.militaryservicecompanysearch.presentation.JobSearchViewModel
+import com.google.android.material.textfield.TextInputEditText
 
 object ViewBinding {
 
-    @BindingAdapter("app:setOnQueryTextListener")
     @JvmStatic
-    fun setOnQueryTextListener(searchView: SearchView, viewModel: MainViewModel) {
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { title ->
-                    viewModel.getRecruitmentNoticesByTitle(title)
-                }
-                return true
+    @BindingAdapter("app:onTextChanged")
+    fun setOnTextChanged(textInputEditText: TextInputEditText, viewModel: JobSearchViewModel) {
+        textInputEditText.doOnTextChanged { text, _, _, _ ->
+            text?.let { title ->
+                viewModel.getRecruitmentNoticesByTitle(title.toString())
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let { title ->
-                    viewModel.getRecruitmentNoticesByTitle(title)
-                }
-                return true
-            }
-
-        })
+        }
     }
 
 }

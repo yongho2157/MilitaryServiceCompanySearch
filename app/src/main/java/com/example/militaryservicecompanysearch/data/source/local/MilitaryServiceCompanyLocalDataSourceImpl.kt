@@ -1,6 +1,5 @@
 package com.example.militaryservicecompanysearch.data.source.local
 
-import android.util.Log
 import androidx.paging.PagingSource
 import com.example.militaryservicecompanysearch.data.db.RecruitmentNoticeDao
 import com.example.militaryservicecompanysearch.data.model.RecruitmentNoticeEntity
@@ -20,7 +19,6 @@ class MilitaryServiceCompanyLocalDataSourceImpl @Inject constructor(
     }
 
     override fun getPagedRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int): PagingSource<Int, RecruitmentNoticeEntity> {
-        Log.d("결과", "getPagedRecruitmentNotices: $sectors, $militaryServiceTypeCode")
         return if (sectors.isEmpty() && militaryServiceTypeCode == 0) {
             recruitmentNoticeDao.getRecruitmentNotices()
         } else if (sectors.isNotEmpty() && militaryServiceTypeCode != 0) {
@@ -32,12 +30,9 @@ class MilitaryServiceCompanyLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override fun getRecruitmentNoticesByTitle(title: String, sectors: List<String>): PagingSource<Int, RecruitmentNoticeEntity> {
-        return if (sectors.isEmpty()) {
-            recruitmentNoticeDao.getRecruitmentNoticesByTitle(title)
-        } else {
-            recruitmentNoticeDao.getRecruitmentNoticesByTitle(title, sectors)
-        }
+
+    override fun getRecruitmentNoticesByTitle(title: String): PagingSource<Int, RecruitmentNoticeEntity> {
+        return recruitmentNoticeDao.getRecruitmentNoticesByTitle(title)
     }
 
     override fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNoticeEntity>> {

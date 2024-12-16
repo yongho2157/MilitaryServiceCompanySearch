@@ -79,20 +79,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getRecruitmentNoticesByTitle(title: String) {
-        viewModelScope.launch {
-            militaryServiceCompanyRepository
-                .getRecruitmentNoticesByTitle(
-                    title = title,
-                    sectors = _selectedSectors.value
-                )
-                .cachedIn(viewModelScope)
-                .collect {
-                    _allSellUiState.value = it
-                }
-        }
-    }
-
     fun setMilitaryServiceType(type: String) {
         _militaryServiceType.value = type
     }

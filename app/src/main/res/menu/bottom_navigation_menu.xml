@@ -9,4 +9,8 @@
         android:id="@+id/fragment_wish_recruitment_notice"
         android:title="@string/wish_recruitment_notice" />
 
+    <item
+        android:id="@+id/fragment_job_search"
+        android:title="@string/job_search" />
+
 </menu>

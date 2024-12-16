@@ -19,18 +19,6 @@
         android:layout_height="match_parent"
         tools:context=".presentation.JobBoardFragment">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:iconifiedByDefault="false"
-            app:layout_constraintBottom_toTopOf="@id/recycler_view_recruitment_notice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:setOnQueryTextListener="@{vm}" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sector_selection_text_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -41,7 +29,7 @@
             app:boxBackgroundColor="@color/white"
             app:layout_constraintBottom_toTopOf="@id/recycler_view_recruitment_notice"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_view">
+            app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
                 android:id="@+id/sector_selection"
