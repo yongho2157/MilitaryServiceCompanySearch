@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanysearch.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,8 +15,12 @@ import com.example.militaryservicecompanysearch.domain.model.Result
 import com.example.militaryservicecompanysearch.domain.repository.MilitaryServiceCompanyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,6 +35,19 @@ class MainViewModel @Inject constructor(
 
     private val _selectedSectors = MutableStateFlow<List<String>>(emptyList())
     val selectedSectors: StateFlow<List<String>> = _selectedSectors
+
+    val displaySectors = selectedSectors.map { sectors ->
+        Log.d("결과", "sectors: $sectors")
+        when {
+            sectors.isEmpty() -> "업종선택"
+            sectors.size == 1 -> sectors.first()
+            else -> "${sectors.first()} 외 ${sectors.size - 1}"
+        }
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        ""
+    )
 
     private val _militaryServiceType = MutableStateFlow<String>("")
     val militaryServiceType: StateFlow<String> = _militaryServiceType
@@ -91,9 +109,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun clearSector() {
-        _selectedSectors.value.let {
-            _selectedSectors.value = emptyList()
+    fun removeSector(type: String) {
+        _selectedSectors.update { currentList ->
+            currentList.filter { it != type }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.militaryservicecompanysearch.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,7 @@ class SectorSelectionFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.selectedSectors.collect { sectors ->
+                    Log.d("결과", "sectors: $sectors")
                     updateChipsSelection(sectors)
                 }
             }
@@ -79,6 +81,7 @@ class SectorSelectionFragment : Fragment() {
                     if (isChecked) {
                         selectedChips.add(text.toString())
                     } else {
+                        viewModel.removeSector(text.toString())
                         selectedChips.remove(text.toString())
                     }
                 }
@@ -88,7 +91,6 @@ class SectorSelectionFragment : Fragment() {
     }
 
     private fun submitSectors() {
-        viewModel.clearSector()
         selectedChips.forEach { sector ->
             viewModel.addSector(sector)
         }
