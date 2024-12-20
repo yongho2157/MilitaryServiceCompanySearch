@@ -37,7 +37,6 @@ class MainViewModel @Inject constructor(
     val selectedSectors: StateFlow<List<String>> = _selectedSectors
 
     val displaySectors = selectedSectors.map { sectors ->
-        Log.d("결과", "sectors: $sectors")
         when {
             sectors.isEmpty() -> "업종선택"
             sectors.size == 1 -> sectors.first()

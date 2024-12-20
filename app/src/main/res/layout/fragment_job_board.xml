@@ -22,7 +22,6 @@
             android:id="@+id/sector_selection_text_input_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="wrap_content"
-            android:minWidth="80dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
@@ -37,6 +36,8 @@
                 android:layout_height="match_parent"
                 android:focusable="false"
                 android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:inputType="none"
                 android:text="@{vm.displaySectors}"
                 android:textSize="14sp" />

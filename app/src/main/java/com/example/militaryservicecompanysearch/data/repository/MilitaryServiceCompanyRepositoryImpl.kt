@@ -38,9 +38,7 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
                 }
             ).flow
                 .map { pagingData ->
-                    pagingData.map { recruitmentNoticeEntity ->
-                        recruitmentNoticeEntity.asDomain()
-                    }
+                    pagingData.asDomain()
                 }
         }
     }
@@ -84,9 +82,7 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
             }
         ).flow
             .map { pagingData ->
-                pagingData.map { recruitmentNoticeEntity ->
-                    recruitmentNoticeEntity.asDomain()
-                }
+                pagingData.asDomain()
             }
     }
 
