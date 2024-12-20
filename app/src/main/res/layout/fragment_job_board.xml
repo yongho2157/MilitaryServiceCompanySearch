@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.militaryservicecompanysearch.presentation.MainViewModel" />
+            type="com.example.militaryservicecompanysearch.presentation.main.MainViewModel" />
 
         <variable
             name="adapter"
@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.JobBoardFragment">
+        tools:context=".presentation.jobboard.JobBoardFragment">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/sector_selection_text_input_layout"

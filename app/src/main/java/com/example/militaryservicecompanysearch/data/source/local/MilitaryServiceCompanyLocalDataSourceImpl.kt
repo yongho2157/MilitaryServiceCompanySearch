@@ -30,7 +30,6 @@ class MilitaryServiceCompanyLocalDataSourceImpl @Inject constructor(
         }
     }
 
-
     override fun getRecruitmentNoticesByTitle(title: String): PagingSource<Int, RecruitmentNoticeEntity> {
         return recruitmentNoticeDao.getRecruitmentNoticesByTitle(title)
     }

@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanysearch.presentation
+package com.example.militaryservicecompanysearch.presentation.wishrecruitmentnotice
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

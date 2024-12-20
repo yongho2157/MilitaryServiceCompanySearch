@@ -1,7 +1,6 @@
-package com.example.militaryservicecompanysearch.presentation
+package com.example.militaryservicecompanysearch.presentation.jobboard
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.militaryservicecompanysearch.R
 import com.example.militaryservicecompanysearch.databinding.FragmentJobBoardBinding
 import com.example.militaryservicecompanysearch.presentation.adapter.RecruitmentNoticeAdapter
+import com.example.militaryservicecompanysearch.presentation.main.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 

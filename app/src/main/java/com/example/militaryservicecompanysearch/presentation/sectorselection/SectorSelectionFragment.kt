@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanysearch.presentation
+package com.example.militaryservicecompanysearch.presentation.sectorselection
 
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.militaryservicecompanysearch.R
 import com.example.militaryservicecompanysearch.databinding.FragmentSectorSelectionBinding
+import com.example.militaryservicecompanysearch.presentation.main.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch

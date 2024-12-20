@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_job_board"
-        android:name="com.example.militaryservicecompanysearch.presentation.JobBoardFragment"
+        android:name="com.example.militaryservicecompanysearch.presentation.jobboard.JobBoardFragment"
         android:label="@string/job_board"
         tools:layout="@layout/fragment_job_board" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_job_detail"
-        android:name="com.example.militaryservicecompanysearch.presentation.JobDetailFragment"
+        android:name="com.example.militaryservicecompanysearch.presentation.jobdetail.JobDetailFragment"
         android:label="@string/job_detail"
         tools:layout="@layout/fragment_job_detail">
         <argument
@@ -36,12 +36,12 @@
     </fragment>
     <fragment
         android:id="@+id/sectorSelectionFragment"
-        android:name="com.example.militaryservicecompanysearch.presentation.SectorSelectionFragment"
+        android:name="com.example.militaryservicecompanysearch.presentation.sectorselection.SectorSelectionFragment"
         android:label="@string/sector_selection"
         tools:layout="@layout/fragment_sector_selection" />
     <fragment
         android:id="@+id/fragment_wish_recruitment_notice"
-        android:name="com.example.militaryservicecompanysearch.presentation.WishRecruitmentNoticeFragment"
+        android:name="com.example.militaryservicecompanysearch.presentation.wishrecruitmentnotice.WishRecruitmentNoticeFragment"
         android:label="@string/wish_recruitment_notice"
         tools:layout="@layout/fragment_wish_recruitment_notice" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_job_search"
-        android:name="com.example.militaryservicecompanysearch.presentation.JobSearchFragment"
+        android:name="com.example.militaryservicecompanysearch.presentation.jobsearch.JobSearchFragment"
         android:label="@string/job_search"
         tools:layout="@layout/fragment_job_search" >
         <action

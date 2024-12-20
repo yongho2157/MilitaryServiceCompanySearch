@@ -2,7 +2,7 @@ package com.example.militaryservicecompanysearch.presentation.binding
 
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
-import com.example.militaryservicecompanysearch.presentation.JobSearchViewModel
+import com.example.militaryservicecompanysearch.presentation.jobsearch.JobSearchViewModel
 import com.google.android.material.textfield.TextInputEditText
 
 object ViewBinding {

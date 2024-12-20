@@ -1,4 +1,4 @@
-package com.example.militaryservicecompanysearch.presentation
+package com.example.militaryservicecompanysearch.presentation.wishrecruitmentnotice
 
 import android.os.Bundle
 import android.view.LayoutInflater
