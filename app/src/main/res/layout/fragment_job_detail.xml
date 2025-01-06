@@ -173,6 +173,7 @@
             android:id="@+id/home_page_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:autoLink="web"
             android:gravity="right"
             android:text="@{recruitmentNotice.homePageLink}"
             app:layout_constraintBaseline_toBaselineOf="@id/home_page_address_title"

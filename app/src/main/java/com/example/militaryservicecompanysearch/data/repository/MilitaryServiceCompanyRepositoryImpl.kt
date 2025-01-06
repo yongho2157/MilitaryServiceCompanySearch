@@ -1,10 +1,8 @@
 package com.example.militaryservicecompanysearch.data.repository
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.map
 import com.example.militaryservicecompanysearch.data.mapper.asDomain
 import com.example.militaryservicecompanysearch.data.mapper.asEntity
 import com.example.militaryservicecompanysearch.data.source.local.MilitaryServiceCompanyLocalDataSource
