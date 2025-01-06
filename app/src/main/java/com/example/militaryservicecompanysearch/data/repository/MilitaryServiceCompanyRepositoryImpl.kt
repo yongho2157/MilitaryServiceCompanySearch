@@ -70,14 +70,16 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
     override fun getLocalRecruitmentNotices(
         sectors: List<String>,
         militaryServiceTypeCode: Int,
+        personnelCode: String,
         pagingConfig: PagingConfig
     ): Flow<PagingData<RecruitmentNotice>> {
         return Pager(
             config = pagingConfig,
             pagingSourceFactory = {
                 militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices(
-                    sectors,
-                    militaryServiceTypeCode
+                    sectors = sectors,
+                    militaryServiceTypeCode = militaryServiceTypeCode,
+                    personnelCode = personnelCode
                 )
             }
         ).flow

@@ -48,7 +48,7 @@ class MainViewModel @Inject constructor(
     )
 
     private val _militaryServiceType = MutableStateFlow<String>("")
-    val militaryServiceType: StateFlow<String> = _militaryServiceType
+    private val _personnel = MutableStateFlow<String>("")
 
     private val _allSellUiState: MutableStateFlow<PagingData<RecruitmentNotice>> =
         MutableStateFlow(PagingData.empty())
@@ -83,6 +83,7 @@ class MainViewModel @Inject constructor(
             getRecruitmentNoticesUseCase(
                 sectors = _selectedSectors.value,
                 militaryServiceType = _militaryServiceType.value,
+                personnel = _personnel.value,
                 pagingConfig = PagingConfig(
                     pageSize = 10,
                     initialLoadSize = 30
@@ -97,6 +98,10 @@ class MainViewModel @Inject constructor(
 
     fun setMilitaryServiceType(type: String) {
         _militaryServiceType.value = type
+    }
+
+    fun setPersonnel(type: String) {
+        _personnel.value = type
     }
 
     fun addSector(type: String) {

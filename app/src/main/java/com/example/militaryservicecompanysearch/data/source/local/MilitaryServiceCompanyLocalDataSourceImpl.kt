@@ -3,6 +3,13 @@ package com.example.militaryservicecompanysearch.data.source.local
 import androidx.paging.PagingSource
 import com.example.militaryservicecompanysearch.data.db.RecruitmentNoticeDao
 import com.example.militaryservicecompanysearch.data.model.RecruitmentNoticeEntity
+import com.example.militaryservicecompanysearch.data.source.local.helper.RecruitmentFilterHelper.isAllFiltersPresent
+import com.example.militaryservicecompanysearch.data.source.local.helper.RecruitmentFilterHelper.isMilitaryServiceAndPersonnel
+import com.example.militaryservicecompanysearch.data.source.local.helper.RecruitmentFilterHelper.isMilitaryServiceOnly
+import com.example.militaryservicecompanysearch.data.source.local.helper.RecruitmentFilterHelper.isNoFilter
+import com.example.militaryservicecompanysearch.data.source.local.helper.RecruitmentFilterHelper.isPersonnelOnly
+import com.example.militaryservicecompanysearch.data.source.local.helper.RecruitmentFilterHelper.isSectorsAndPersonnel
+import com.example.militaryservicecompanysearch.data.source.local.helper.RecruitmentFilterHelper.isSectorsOnly
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -18,15 +25,50 @@ class MilitaryServiceCompanyLocalDataSourceImpl @Inject constructor(
         return recruitmentNoticeDao.getAllRecruitmentNotices()
     }
 
-    override fun getPagedRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int): PagingSource<Int, RecruitmentNoticeEntity> {
-        return if (sectors.isEmpty() && militaryServiceTypeCode == 0) {
-            recruitmentNoticeDao.getRecruitmentNotices()
-        } else if (sectors.isNotEmpty() && militaryServiceTypeCode != 0) {
-            recruitmentNoticeDao.getRecruitmentNotices(sectors, militaryServiceTypeCode)
-        } else if (sectors.isNotEmpty()) {
-            recruitmentNoticeDao.getRecruitmentNoticesBySectors(sectors)
-        } else {
-            recruitmentNoticeDao.getRecruitmentNoticesByMilitaryServiceTypeCode(militaryServiceTypeCode)
+    override fun getPagedRecruitmentNotices(
+        sectors: List<String>,
+        militaryServiceTypeCode: Int,
+        personnelCode: String
+    ): PagingSource<Int, RecruitmentNoticeEntity> {
+
+        return when {
+            isNoFilter(
+                sectors = sectors,
+                militaryServiceTypeCode = militaryServiceTypeCode,
+                personnelCode = personnelCode
+            ) -> {
+                recruitmentNoticeDao.getRecruitmentNotices()
+            }
+
+            isAllFiltersPresent(sectors, militaryServiceTypeCode, personnelCode) -> {
+                recruitmentNoticeDao.getRecruitmentNotices(sectors, militaryServiceTypeCode, personnelCode)
+            }
+
+            isSectorsAndPersonnel(sectors, personnelCode) -> {
+                recruitmentNoticeDao.getRecruitmentNoticesBySectorsAndPersonnel(sectors, personnelCode)
+            }
+
+            isMilitaryServiceAndPersonnel(militaryServiceTypeCode, personnelCode) -> {
+                recruitmentNoticeDao.getRecruitmentNoticesByMilitaryServiceAndPersonnel(
+                    militaryServiceTypeCode,
+                    personnelCode
+                )
+            }
+
+            isSectorsOnly(sectors) -> {
+                recruitmentNoticeDao.getRecruitmentNoticesBySectors(sectors)
+            }
+
+            isMilitaryServiceOnly(militaryServiceTypeCode) -> {
+                recruitmentNoticeDao.getRecruitmentNoticesByMilitaryServiceTypeCode(militaryServiceTypeCode)
+            }
+
+            isPersonnelOnly(personnelCode) -> {
+                recruitmentNoticeDao.getRecruitmentNoticesByPersonnel(personnelCode)
+            }
+
+            else -> recruitmentNoticeDao.getRecruitmentNotices()
+
         }
     }
 

@@ -21,8 +21,18 @@ interface RecruitmentNoticeDao {
     @Query("SELECT * FROM recruitment_notices")
     fun getRecruitmentNotices(): PagingSource<Int, RecruitmentNoticeEntity>
 
-    @Query("SELECT * FROM recruitment_notices WHERE sector IN (:sectors) AND military_service_type_code = :militaryServiceTypeCode")
-    fun getRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int): PagingSource<Int, RecruitmentNoticeEntity>
+    @Query("""
+        SELECT * 
+        FROM recruitment_notices 
+        WHERE sector IN (:sectors) 
+            AND military_service_type_code = :militaryServiceTypeCode 
+            AND personnel_code = :personnelCode
+    """)
+    fun getRecruitmentNotices(
+        sectors: List<String>,
+        militaryServiceTypeCode: Int,
+        personnelCode: String
+    ): PagingSource<Int, RecruitmentNoticeEntity>
 
     @Query("SELECT * FROM recruitment_notices WHERE military_service_type_code = :militaryServiceTypeCode")
     fun getRecruitmentNoticesByMilitaryServiceTypeCode(militaryServiceTypeCode: Int): PagingSource<Int, RecruitmentNoticeEntity>
@@ -30,8 +40,31 @@ interface RecruitmentNoticeDao {
     @Query("SELECT * FROM recruitment_notices WHERE recruitment_title LIKE '%' || :title || '%'")
     fun getRecruitmentNoticesByTitle(title: String): PagingSource<Int, RecruitmentNoticeEntity>
 
-    @Query("SELECT * FROM recruitment_notices WHERE (:sectors IS NULL OR sector = '') OR sector IN (:sectors)")
+    @Query("SELECT * FROM recruitment_notices WHERE sector IN (:sectors)")
     fun getRecruitmentNoticesBySectors(sectors: List<String>): PagingSource<Int, RecruitmentNoticeEntity>
+
+    @Query("SELECT * FROM recruitment_notices WHERE personnel_code IN (:personnelCode)")
+    fun getRecruitmentNoticesByPersonnel(personnelCode: String): PagingSource<Int, RecruitmentNoticeEntity>
+
+    @Query("""
+        SELECT * 
+        FROM recruitment_notices 
+        WHERE sector IN (:sectors) AND personnel_code IN (:personnelCode)
+        """)
+    fun getRecruitmentNoticesBySectorsAndPersonnel(
+        sectors: List<String>,
+        personnelCode: String
+    ): PagingSource<Int, RecruitmentNoticeEntity>
+
+    @Query("""
+        SELECT * 
+        FROM recruitment_notices 
+        WHERE military_service_type_code = :militaryServiceTypeCode AND personnel_code = :personnelCode
+        """)
+    fun getRecruitmentNoticesByMilitaryServiceAndPersonnel(
+        militaryServiceTypeCode: Int,
+        personnelCode: String
+    ): PagingSource<Int, RecruitmentNoticeEntity>
 
     @Query("SELECT * FROM recruitment_notices WHERE isBookmarked = 1")
     fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNoticeEntity>>

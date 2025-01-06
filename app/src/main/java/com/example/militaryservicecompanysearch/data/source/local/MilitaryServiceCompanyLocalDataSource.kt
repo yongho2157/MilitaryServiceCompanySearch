@@ -11,7 +11,7 @@ interface MilitaryServiceCompanyLocalDataSource {
 
     suspend fun getAllRecruitmentNotices(): List<RecruitmentNoticeEntity>
 
-    fun getPagedRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int): PagingSource<Int, RecruitmentNoticeEntity>
+    fun getPagedRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int, personnelCode: String): PagingSource<Int, RecruitmentNoticeEntity>
 
     fun getRecruitmentNoticesByTitle(title: String): PagingSource<Int, RecruitmentNoticeEntity>
 

@@ -6,7 +6,7 @@ enum class MilitaryServiceType(val type: String, val code: Int) {
     MARITIME("승선근무예비역", 3);
 
     companion object {
-        fun getCodeByType(type: String): Int {
+        fun fromCode(type: String): Int {
             return entries.find { it.type == type }?.code ?: 0
         }
     }

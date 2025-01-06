@@ -67,14 +67,25 @@ class JobBoardFragment : Fragment() {
             viewModel.setMilitaryServiceType(selectedValue)
             viewModel.getLocalRecruitmentNotices()
         }
+
+        binding.personnelAutoCompleteTextView.doOnTextChanged { text, _, _, _ ->
+            val selectedValue = text.toString()
+            viewModel.setPersonnel(selectedValue)
+            viewModel.getLocalRecruitmentNotices()
+        }
     }
 
     override fun onResume() {
         super.onResume()
 
-        val regionArray = resources.getStringArray(R.array.military_service_types)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.millitary_service_dropdown_menu_item, regionArray)
-        binding.militaryServiceTypeAutoCompleteTextView.setAdapter(arrayAdapter)
+        val militaryServiceTypes = resources.getStringArray(R.array.military_service_types)
+        val militaryServiceTypeAdapter = ArrayAdapter(requireContext(), R.layout.millitary_service_dropdown_menu_item, militaryServiceTypes)
+
+        val personnelTypes = resources.getStringArray(R.array.personnel_types)
+        val personnelTypeAdapter = ArrayAdapter(requireContext(), R.layout.millitary_service_dropdown_menu_item, personnelTypes)
+
+        binding.militaryServiceTypeAutoCompleteTextView.setAdapter(militaryServiceTypeAdapter)
+        binding.personnelAutoCompleteTextView.setAdapter(personnelTypeAdapter)
     }
 
     override fun onDestroy() {

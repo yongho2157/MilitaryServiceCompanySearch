@@ -47,5 +47,12 @@
         <item>전문연구요원</item>
         <item>승선근무예비역</item>
     </string-array>
+
+    <string-array name="personnel_types">
+        <item>전체</item>
+        <item>현역</item>
+        <item>보충역</item>
+    </string-array>
+
     <string name="sector_selection_title">업종 선택</string>
 </resources>

@@ -10,7 +10,12 @@ import kotlinx.coroutines.flow.Flow
 interface MilitaryServiceCompanyRepository {
     fun getRecruitmentNoticesByTitle(title: String): Flow<PagingData<RecruitmentNotice>>
     suspend fun getRecruitmentNotices(): Result<List<RecruitmentNotice>, DataError.Network>
-    fun getLocalRecruitmentNotices(sectors: List<String>, militaryServiceTypeCode: Int, pagingConfig: PagingConfig): Flow<PagingData<RecruitmentNotice>>
+    fun getLocalRecruitmentNotices(
+        sectors: List<String>,
+        militaryServiceTypeCode: Int,
+        personnelCode: String,
+        pagingConfig: PagingConfig,
+    ): Flow<PagingData<RecruitmentNotice>>
     fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNotice>>
     suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean)
 }
