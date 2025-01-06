@@ -77,15 +77,28 @@ class JobBoardFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        setupMilitaryServiceTypeDropdown()
+        setupPersonnelTypeDropdown()
+    }
 
+    private fun setupMilitaryServiceTypeDropdown() {
         val militaryServiceTypes = resources.getStringArray(R.array.military_service_types)
-        val militaryServiceTypeAdapter = ArrayAdapter(requireContext(), R.layout.millitary_service_dropdown_menu_item, militaryServiceTypes)
+        val adapter = createDropdownAdapter(militaryServiceTypes)
+        binding.militaryServiceTypeAutoCompleteTextView.setAdapter(adapter)
+    }
 
+    private fun setupPersonnelTypeDropdown() {
         val personnelTypes = resources.getStringArray(R.array.personnel_types)
-        val personnelTypeAdapter = ArrayAdapter(requireContext(), R.layout.millitary_service_dropdown_menu_item, personnelTypes)
+        val adapter = createDropdownAdapter(personnelTypes)
+        binding.personnelAutoCompleteTextView.setAdapter(adapter)
+    }
 
-        binding.militaryServiceTypeAutoCompleteTextView.setAdapter(militaryServiceTypeAdapter)
-        binding.personnelAutoCompleteTextView.setAdapter(personnelTypeAdapter)
+    private fun createDropdownAdapter(items: Array<String>): ArrayAdapter<String> {
+        return ArrayAdapter(
+            requireContext(),
+            R.layout.dropdown_menu_item,
+            items
+        )
     }
 
     override fun onDestroy() {
