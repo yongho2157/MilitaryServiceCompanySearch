@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_job_detail">
         <argument
             android:name="RecruitmentNotice"
-            app:argType="com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice" />
+            app:argType="com.example.militartservicecompanysearch.core.model.RecruitmentNotice" />
     </fragment>
     <fragment
         android:id="@+id/sectorSelectionFragment"

@@ -1,8 +1,8 @@
 package com.example.militaryservicecompanysearch.presentation.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
 import com.example.militaryservicecompanysearch.databinding.RecruitmentNoticeItemBinding
-import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 
 class RecruitmentNoticeViewHolder(
     private val binding: RecruitmentNoticeItemBinding

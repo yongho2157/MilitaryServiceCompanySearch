@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
 import com.example.militaryservicecompanysearch.databinding.RecruitmentNoticeItemBinding
-import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 
 class WishRecruitmentNoticeAdapter : ListAdapter<RecruitmentNotice, RecruitmentNoticeViewHolder>(diffUtil) {
 

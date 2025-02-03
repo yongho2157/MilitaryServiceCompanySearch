@@ -7,11 +7,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.militaryservicecompanysearch.domain.usecase.GetRecruitmentNoticesUseCase
-import com.example.militaryservicecompanysearch.domain.model.DataError
-import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
-import com.example.militaryservicecompanysearch.domain.model.Result
-import com.example.militaryservicecompanysearch.domain.repository.MilitaryServiceCompanyRepository
+import com.example.militartservicecompanysearch.core.model.DataError
+import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
+import com.example.militaryservicecompanysearch.core.domain.repository.MilitaryServiceCompanyRepository
+import com.example.militaryservicecompanysearch.core.domain.usecase.GetRecruitmentNoticesUseCase
+import com.example.militartservicecompanysearch.core.model.Result
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

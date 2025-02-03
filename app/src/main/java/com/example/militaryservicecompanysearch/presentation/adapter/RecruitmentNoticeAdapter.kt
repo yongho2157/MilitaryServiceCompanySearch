@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
 import com.example.militaryservicecompanysearch.databinding.RecruitmentNoticeItemBinding
-import com.example.militaryservicecompanysearch.domain.model.RecruitmentNotice
 
 class RecruitmentNoticeAdapter : PagingDataAdapter<RecruitmentNotice, RecruitmentNoticeViewHolder>(diffUtil) {
 
