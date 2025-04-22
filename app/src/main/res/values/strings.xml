@@ -5,6 +5,7 @@
     <string name="wish_recruitment_notice">관심공고</string>
     <string name="job_search">채용 검색</string>
     <string name="sector_selection">업종선택</string>
+    <string name="share">공유</string>
 
     <string-array name="sector_types">
         <item>철강</item>
