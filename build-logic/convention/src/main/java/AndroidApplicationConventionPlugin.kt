@@ -1,27 +1,47 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.example.militaryservicecompanysearch.convention.configureKotlinAndroid
-import com.example.militaryservicecompanysearch.convention.libs
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-class AndroidApplicationConventionPlugin: Plugin<Project> {
+class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        target.run {
-            pluginManager.run {
+        with(target) {
+            with(pluginManager) {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
             }
 
             extensions.configure<ApplicationExtension> {
+                compileSdk = 34
                 defaultConfig {
-                    applicationId = libs.findVersion("projectApplicationId").get().toString()
-                    targetSdk = libs.findVersion("projectTargetSdkVersion").get().toString().toInt()
-                    versionCode = libs.findVersion("projectVersionCode").get().toString().toInt()
-                    versionName = libs.findVersion("projectVersionName").get().toString()
+                    targetSdk = 34
+                    minSdk = 24
+
+                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                    vectorDrawables {
+                        useSupportLibrary = true
+                    }
                 }
 
-                configureKotlinAndroid(this)
+                buildTypes {
+                    release {
+                        isMinifyEnabled = false
+                        proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
+                            "proguard-rules.pro")
+                    }
+                }
+
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_17
+                    targetCompatibility = JavaVersion.VERSION_17
+                }
+
+                packaging {
+                    resources {
+                        excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+                    }
+                }
             }
         }
     }

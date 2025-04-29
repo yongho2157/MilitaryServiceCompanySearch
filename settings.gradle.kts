@@ -15,14 +15,14 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
 rootProject.name = "MilitaryServiceCompanySearch"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
-//include(":core:domain")
 include(":core:network")
 include(":core:common")
 include(":core:data")
 include(":core:database")
 include(":core:model")
 include(":core:domain")
+include(":feature:recruitment")

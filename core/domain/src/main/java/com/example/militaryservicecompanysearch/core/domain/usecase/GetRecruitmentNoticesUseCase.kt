@@ -1,6 +1,5 @@
 package com.example.militaryservicecompanysearch.core.domain.usecase
 
-import android.util.Log
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
@@ -21,8 +20,6 @@ class GetRecruitmentNoticesUseCase @Inject constructor(
     ): Flow<PagingData<RecruitmentNotice>> {
         val militaryServiceTypeCode = MilitaryServiceType.fromCode(militaryServiceType)
         val personnelCode = Personnel.fromCode(personnel)
-        Log.d("결과", "militaryServiceTypeCode: $militaryServiceTypeCode")
-        Log.d("결과", "personnelCode: $personnelCode")
 
         return militaryServiceCompanyRepository.getLocalRecruitmentNotices(
             sectors = sectors,

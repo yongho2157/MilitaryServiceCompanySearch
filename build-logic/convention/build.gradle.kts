@@ -26,21 +26,18 @@ dependencies {
     compileOnly(libs.room.gradlePlugin)
 }
 
-tasks {
-    validatePlugins {
-        enableStricterValidation = true
-        failOnWarning = true
-    }
-}
-
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "militaryservicecompanysearch.android.application"
+            id = "mscs.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidLibraryCompose") {
+            id = "mscs.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
         register("androidLibrary") {
-            id = "militaryservicecompanysearch.android.library"
+            id = "mscs.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
         register("hilt") {

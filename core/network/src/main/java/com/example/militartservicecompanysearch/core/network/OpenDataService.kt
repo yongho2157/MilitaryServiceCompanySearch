@@ -13,3 +13,4 @@ interface OpenDataService {
         @Query("ServiceKey") serviceKey: String = BuildConfig.SERVICE_KEY
     ): RecruitmentNoticeResponse
 }
+
