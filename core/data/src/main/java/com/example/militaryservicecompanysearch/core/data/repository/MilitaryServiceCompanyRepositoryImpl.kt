@@ -6,8 +6,8 @@ import androidx.paging.PagingData
 import com.example.militartservicecompanysearch.core.model.Result
 import com.example.militartservicecompanysearch.core.model.DataError
 import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
-import com.example.militaryservicecompanysearch.core.data.mapper.asDomain
-import com.example.militaryservicecompanysearch.core.data.mapper.asEntity
+import com.example.militaryservicecompanysearch.core.data.mapper.toDomain
+import com.example.militaryservicecompanysearch.core.data.mapper.toEntity
 import com.example.militaryservicecompanysearch.core.data.source.local.MilitaryServiceCompanyLocalDataSource
 import com.example.militaryservicecompanysearch.core.data.source.remote.MilitaryServiceCompanyRemoteDataSource
 import com.example.militaryservicecompanysearch.core.domain.repository.MilitaryServiceCompanyRepository
@@ -35,7 +35,7 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
                 }
             ).flow
                 .map { pagingData ->
-                    pagingData.asDomain()
+                    pagingData.toDomain()
                 }
         }
     }
@@ -51,17 +51,13 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
                 val dataResponse = militaryServiceCompanyRemoteDataSource
                     .fetchRecruitmentNotices(numOfRows = countResponse, pageNo = 1).body.items.item
 
-                militaryServiceCompanyLocalDataSource.insertRecruitmentNotices(dataResponse.asEntity())
-                return Result.Success(dataResponse)
+                militaryServiceCompanyLocalDataSource.insertRecruitmentNotices(dataResponse.map { it.toEntity() })
+                return Result.Success(dataResponse.map { it.toDomain() })
             } else {
-                return Result.Success(recruitmentNotices.asDomain())
+                return Result.Success(recruitmentNotices.map { it.toDomain() })
             }
         } catch (e: Exception) {
             return Result.Error(DataError.Network.REQUEST_TIMEOUT)
-//            when (e.code()) {
-//                408 -> Result.Error(DataError.Network.REQUEST_TIMEOUT)
-//                else -> Result.Error(DataError.Network.UNKNOWN)
-//            }
         }
     }
 
@@ -82,7 +78,7 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
             }
         ).flow
             .map { pagingData ->
-                pagingData.asDomain()
+                pagingData.toDomain()
             }
     }
 
@@ -90,7 +86,7 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
         return militaryServiceCompanyLocalDataSource
             .getBookmarkedRecruitmentNotices()
             .map { recruitmentNotices ->
-                recruitmentNotices.asDomain()
+                recruitmentNotices.map { it.toDomain() }
             }
     }
 
