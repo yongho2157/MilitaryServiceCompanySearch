@@ -1,5 +1,6 @@
 package com.example.militaryservicecompanysearch.core.data.repository
 
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -10,6 +11,7 @@ import com.example.militaryservicecompanysearch.core.data.mapper.toDomain
 import com.example.militaryservicecompanysearch.core.data.mapper.toEntity
 import com.example.militaryservicecompanysearch.core.data.source.local.MilitaryServiceCompanyLocalDataSource
 import com.example.militaryservicecompanysearch.core.data.source.remote.MilitaryServiceCompanyRemoteDataSource
+import com.example.militaryservicecompanysearch.core.data.source.remote.RecruitmentNoticeRemoteMediator
 import com.example.militaryservicecompanysearch.core.domain.repository.MilitaryServiceCompanyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -18,7 +20,8 @@ import javax.inject.Inject
 
 class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
     private val militaryServiceCompanyRemoteDataSource: MilitaryServiceCompanyRemoteDataSource,
-    private val militaryServiceCompanyLocalDataSource: MilitaryServiceCompanyLocalDataSource
+    private val militaryServiceCompanyLocalDataSource: MilitaryServiceCompanyLocalDataSource,
+    private val recruitmentNoticeRemoteMediator: RecruitmentNoticeRemoteMediator
 ) : MilitaryServiceCompanyRepository {
 
     override fun getRecruitmentNoticesByTitle(title: String): Flow<PagingData<RecruitmentNotice>> {
@@ -61,14 +64,18 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
         }
     }
 
+    @OptIn(ExperimentalPagingApi::class)
     override fun getLocalRecruitmentNotices(
         sectors: List<String>,
         militaryServiceTypeCode: Int,
         personnelCode: String,
-        pagingConfig: PagingConfig
     ): Flow<PagingData<RecruitmentNotice>> {
         return Pager(
-            config = pagingConfig,
+            config = PagingConfig(
+                pageSize = 10,
+                initialLoadSize = 30
+            ),
+            remoteMediator = recruitmentNoticeRemoteMediator,
             pagingSourceFactory = {
                 militaryServiceCompanyLocalDataSource.getPagedRecruitmentNotices(
                     sectors = sectors,

@@ -5,11 +5,15 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import com.example.militaryservicecompanysearch.core.database.model.RecruitmentNoticeEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RecruitmentNoticeDao {
+
+    @Upsert
+    suspend fun upsertRecruitmentNotices(recruitmentNotices: List<RecruitmentNoticeEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecruitmentNotices(recruitmentNotices: List<RecruitmentNoticeEntity>)

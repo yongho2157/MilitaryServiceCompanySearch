@@ -32,6 +32,10 @@ gradlePlugin {
             id = "mscs.android.application"
             implementationClass = "AndroidApplicationConventionPlugin"
         }
+        register("androidApplicationCompose") {
+            id = "mscs.android.application.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
         register("androidLibraryCompose") {
             id = "mscs.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
@@ -40,12 +44,16 @@ gradlePlugin {
             id = "mscs.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidFeature") {
+            id = "mscs.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
         register("hilt") {
-            id = "militaryservicecompanysearch.hilt"
+            id = "mscs.hilt"
             implementationClass = "HiltConventionPlugin"
         }
         register("androidRoom") {
-            id = "militaryservicecompanysearch.android.room"
+            id = "mscs.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
     }

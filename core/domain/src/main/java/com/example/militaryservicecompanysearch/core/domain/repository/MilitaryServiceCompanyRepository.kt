@@ -1,6 +1,5 @@
 package com.example.militaryservicecompanysearch.core.domain.repository
 
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.militartservicecompanysearch.core.model.DataError
 import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
@@ -14,7 +13,6 @@ interface MilitaryServiceCompanyRepository {
         sectors: List<String>,
         militaryServiceTypeCode: Int,
         personnelCode: String,
-        pagingConfig: PagingConfig,
     ): Flow<PagingData<RecruitmentNotice>>
     fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNotice>>
     suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean)

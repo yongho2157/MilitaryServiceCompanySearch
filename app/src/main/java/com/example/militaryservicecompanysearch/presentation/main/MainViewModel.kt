@@ -84,11 +84,7 @@ class MainViewModel @Inject constructor(
             getRecruitmentNoticesUseCase(
                 sectors = _selectedSectors.value,
                 militaryServiceType = _militaryServiceType.value,
-                personnel = _personnel.value,
-                pagingConfig = PagingConfig(
-                    pageSize = 10,
-                    initialLoadSize = 30
-                )
+                personnel = _personnel.value
             )
                 .cachedIn(viewModelScope)
                 .collect {

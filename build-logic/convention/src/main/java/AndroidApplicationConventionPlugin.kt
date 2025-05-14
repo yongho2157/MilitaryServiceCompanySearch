@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.example.militaryservicecompanysearch.convention.configureKotlinAndroid
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -13,35 +14,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             }
 
             extensions.configure<ApplicationExtension> {
-                compileSdk = 34
-                defaultConfig {
-                    targetSdk = 34
-                    minSdk = 24
-
-                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                    vectorDrawables {
-                        useSupportLibrary = true
-                    }
-                }
-
-                buildTypes {
-                    release {
-                        isMinifyEnabled = false
-                        proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                            "proguard-rules.pro")
-                    }
-                }
-
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_17
-                    targetCompatibility = JavaVersion.VERSION_17
-                }
-
-                packaging {
-                    resources {
-                        excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-                    }
-                }
+                configureKotlinAndroid(this)
+                defaultConfig.targetSdk = 34
             }
         }
     }

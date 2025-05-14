@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "recruitment_notices")
 data class RecruitmentNoticeEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     @ColumnInfo(name = "welfare_benefits")
     val welfareBenefits: String, // 복리후생
     @ColumnInfo(name = "registration_date")
@@ -14,7 +16,6 @@ data class RecruitmentNoticeEntity(
     val lastModifiedDate: String, // 최종변동일
     @ColumnInfo(name = "highest_education")
     val highestEducation: String, // 최종학력
-    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "recruitment_no")
     val recruitmentNo: String, // 채용번호
     @ColumnInfo(name = "recruitment_title")

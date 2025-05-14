@@ -13,6 +13,8 @@ dependencies {
     implementation(projects.core.database)
     implementation(projects.core.domain)
 
+    implementation(libs.room.ktx)
+    implementation(libs.retrofit.core)
     implementation(libs.androidx.paging.common.ktx)
     implementation(libs.androidx.paging.runtime.ktx)
 }

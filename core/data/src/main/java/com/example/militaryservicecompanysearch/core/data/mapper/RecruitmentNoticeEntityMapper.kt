@@ -40,7 +40,7 @@ internal fun NetworkRecruitmentNotice.toEntity(): RecruitmentNoticeEntity {
         militaryServiceTypeCode = this.militaryServiceTypeCode,
         militaryServiceType = this.militaryServiceType,
         validFlag = this.validFlag,
-        isBookmarked = false
+        isBookmarked = false,
     )
 }
 
