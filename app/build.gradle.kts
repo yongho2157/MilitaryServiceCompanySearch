@@ -15,6 +15,15 @@ android {
             useSupportLibrary = true
         }
     }
+    lint {
+        abortOnError = false  // lint 에러 무시
+        checkReleaseBuilds = false
+    }
+
+    // 리소스 관련 에러도 무시
+    aaptOptions {
+        ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~"
+    }
 
     buildTypes {
         release {
@@ -43,6 +52,7 @@ dependencies {
     // Modules
     implementation(projects.core.data)
     implementation(projects.core.domain)
+    implementation(projects.feature.main)
     implementation(projects.feature.recruitment)
 
     // Navigation

@@ -8,4 +8,8 @@ sealed interface Route {
 sealed interface MainTabRoute : Route {
     @Serializable
     data object Recruitment : MainTabRoute
+    @Serializable
+    data object Favorite : MainTabRoute
+    @Serializable
+    data object Search : MainTabRoute
 }

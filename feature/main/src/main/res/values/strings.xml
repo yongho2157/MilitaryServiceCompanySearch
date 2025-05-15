@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_recruitment">채용</string>
+    <string name="tab_favorite">관심</string>
+    <string name="tab_search">검색</string>
+</resources>

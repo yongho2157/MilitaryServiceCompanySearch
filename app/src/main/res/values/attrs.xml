@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material Design attributes -->
+    <attr name="textAppearanceBodyMedium" format="reference"/>
+    
+    <!-- Data Binding attributes -->
+    <attr name="adapter" format="string"/>
+    <attr name="onTextChanged" format="string"/>
+</resources>
