@@ -3,8 +3,10 @@ package com.example.militaryservicecompanysearch.core.data.mapper
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
+import com.example.militartservicecompanysearch.core.model.calculateDueInfo
 import com.example.militartservicecompanysearch.core.network.model.NetworkRecruitmentNotice
 import com.example.militaryservicecompanysearch.core.database.model.RecruitmentNoticeEntity
+import kotlinx.datetime.LocalDate
 
 internal fun NetworkRecruitmentNotice.toEntity(): RecruitmentNoticeEntity {
     return RecruitmentNoticeEntity(
@@ -70,7 +72,7 @@ internal fun RecruitmentNotice.toEntity(): RecruitmentNoticeEntity {
         homePageLink = this.homePageLink ?: "",
         submissionMethod = this.submissionMethod ?: "",
         companyAddressCode = this.companyAddressCode,
-        dueDate = this.dueDate,
+        dueDate = this.dueDate.toString().replace("-", ""),
         recruitmentCount = this.recruitmentCount,
         saeopjaDrno = this.saeopjaDrno,
         personnelCode = this.personnelCode,
@@ -108,7 +110,8 @@ internal fun NetworkRecruitmentNotice.toDomain(): RecruitmentNotice {
         homePageLink = this.homePageLink,
         submissionMethod = this.submissionMethod,
         companyAddressCode = this.companyAddressCode,
-        dueDate = this.dueDate,
+        dueDate = this.dueDate.toLocalDate(),
+        dueDateInfo = this.dueDate.toLocalDate().calculateDueInfo(),
         recruitmentCount = this.recruitmentCount,
         saeopjaDrno = this.saeopjaDrno,
         personnelCode = this.personnelCode,
@@ -145,7 +148,8 @@ internal fun RecruitmentNoticeEntity.toDomain(): RecruitmentNotice {
         homePageLink = this.homePageLink,
         submissionMethod = this.submissionMethod,
         companyAddressCode = this.companyAddressCode,
-        dueDate = this.dueDate,
+        dueDate = this.dueDate.toLocalDate(),
+        dueDateInfo = this.dueDate.toLocalDate().calculateDueInfo(),
         recruitmentCount = this.recruitmentCount,
         saeopjaDrno = this.saeopjaDrno,
         personnelCode = this.personnelCode,
@@ -168,3 +172,10 @@ internal fun PagingData<RecruitmentNotice>.asEntity(): PagingData<RecruitmentNot
         it.toEntity()
     }
 }
+
+internal fun String.toLocalDate(): LocalDate =
+    LocalDate(
+        this.substring(0, 4).toInt(),
+        this.substring(4, 6).toInt(),
+        this.substring(6, 8).toInt()
+    )

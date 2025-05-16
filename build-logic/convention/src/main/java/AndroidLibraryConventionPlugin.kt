@@ -1,12 +1,10 @@
 import com.android.build.api.dsl.LibraryExtension
-import org.gradle.api.JavaVersion
+import com.example.militaryservicecompanysearch.convention.configureKotlinAndroid
+import com.example.militaryservicecompanysearch.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import com.example.militaryservicecompanysearch.convention.libs
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -34,10 +32,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     }
                 }
 
-                buildFeatures {
-                    buildConfig = true
-                }
-
                 packaging {
                     resources {
                         excludes.add("/META-INF/{AL2.0,LGPL2.1}")
@@ -50,31 +44,6 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                 add("testImplementation", libs.findLibrary("junit").get())
                 add("androidTestImplementation", libs.findLibrary("androidx.test.ext.junit").get())
             }
-        }
-    }
-}
-
-internal fun Project.configureKotlinAndroid(
-    extension: LibraryExtension
-) {
-    extension.apply {
-        compileSdk = 34
-
-        defaultConfig {
-            minSdk = 24
-        }
-
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_17
-            targetCompatibility = JavaVersion.VERSION_17
-        }
-
-        (this as ExtensionAware).extensions.configure<KotlinJvmOptions>("kotlinOptions") {
-            jvmTarget = JavaVersion.VERSION_17.toString()
-            freeCompilerArgs = listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            )
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.example.militartservicecompanysearch.core.model
 
+import kotlinx.datetime.LocalDate
+
 data class RecruitmentNotice(
     val welfareBenefits: String?, // 복리후생
     val registrationDate: String, // 최초발생일
@@ -25,7 +27,8 @@ data class RecruitmentNotice(
     val homePageLink: String?, // 회사 사이트
     val submissionMethod: String?, // 접수방법
     val companyAddressCode: String,
-    val dueDate: String, // 마감일자
+    val dueDate: LocalDate, // 마감일자
+    val dueDateInfo: DueDateInfo,
     val recruitmentCount: String, // 모집 인원
     val saeopjaDrno: String, // 사업자번호
     val personnelCode: String, // 역종분류코드

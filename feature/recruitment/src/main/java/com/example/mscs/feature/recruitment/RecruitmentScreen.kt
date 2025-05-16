@@ -52,11 +52,7 @@ private fun RecruitmentScreen(
                         modifier = Modifier.align(Alignment.Center)
                     )
                 } else {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
+                    LazyColumn {
                         items(recruitmentNotices.itemCount) { index ->
                             val recruitmentNotice = recruitmentNotices[index]
                             if (recruitmentNotice != null) {

@@ -9,5 +9,6 @@ android {
 }
 
 dependencies {
+    api(libs.kotlinx.datetime)
     implementation(libs.tikxml.annotation)
 }

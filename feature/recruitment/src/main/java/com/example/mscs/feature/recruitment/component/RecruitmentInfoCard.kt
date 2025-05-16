@@ -1,70 +1,151 @@
 package com.example.mscs.feature.recruitment.component
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.OutlinedCard
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.militartservicecompanysearch.core.model.DueDateInfo
+import com.example.militartservicecompanysearch.core.model.DueDateType
 import com.example.militartservicecompanysearch.core.model.RecruitmentNotice
+import com.example.mscs.feature.recruitment.R
+import kotlinx.datetime.LocalDate
 
 @Composable
 fun RecruitmentInfoCard(
-    recruitmentNotice: RecruitmentNotice,
-    modifier: Modifier = Modifier
+    recruitmentNotice: RecruitmentNotice, modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
-        shape = RoundedCornerShape(8.dp),
-        border = BorderStroke(
-            width = 1.dp,
-            color = Color.Black
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         modifier = modifier
             .fillMaxWidth()
-            .padding(10.dp)
-            .height(150.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .height(170.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(10.dp),
-            verticalArrangement = Arrangement.SpaceAround
+                .padding(16.dp),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                text = recruitmentNotice.companyName,
-                fontSize = 14.sp
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = recruitmentNotice.companyName,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(start = 8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.LocationOn,
+                        contentDescription = stringResource(R.string.recruitment_location_contentDescription),
+                        tint = MaterialTheme.colorScheme.outline,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(2.dp))
+                    Text(
+                        text = recruitmentNotice.location,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.outline
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = recruitmentNotice.recruitmentTitle,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
             )
 
-            Text(
-                text = recruitmentNotice.jobPosition,
-                fontSize = 14.sp
-            )
-            Text(
-                text = recruitmentNotice.dueDate,
-                fontSize = 12.sp,
-                modifier = Modifier.align(Alignment.End)
-            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically
+            ) {
+                MilitaryTypeChip(
+                    text = recruitmentNotice.militaryServiceType,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                MilitaryTypeChip(
+                    text = recruitmentNotice.personnel,
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Outlined.Person,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.outline,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(2.dp))
+                    Text(
+                        text = "${recruitmentNotice.careerCategory} · ${recruitmentNotice.recruitmentCount}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.outline
+                    )
+                }
+
+                DueDateTag(
+                    dueDateInfo = recruitmentNotice.dueDateInfo,
+                )
+            }
         }
     }
 }
+
 
 @Preview
 @Composable
@@ -94,7 +175,8 @@ private fun RecruitmentInfoCardPreview() {
         homePageLink = null,
         submissionMethod = "병역일터 이력서",
         companyAddressCode = "4812312300",
-        dueDate = "20250531",
+        dueDate = LocalDate(2025, 4, 25),
+        dueDateInfo = DueDateInfo("~5/31", DueDateType.FUTURE),
         recruitmentCount = "2명",
         saeopjaDrno = "6098135829",
         personnelCode = "006",
