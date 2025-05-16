@@ -9,7 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.example.mscs.feature.main.MainNavigator
-import com.example.mscs.feature.recruitment.navigation.recruitmentNavGraph
+import com.example.mscs.feature.recruitmentnotice.navigation.recruitmentNoticeNavGraph
+import com.example.mscs.feature.recruitmentnoticedetail.navigation.navigateRecruitmentNoticeDetail
+import com.example.mscs.feature.recruitmentnoticedetail.navigation.recruitmentNoticeDetailNavGraph
 
 @Composable
 internal fun MainNavHost(
@@ -26,8 +28,17 @@ internal fun MainNavHost(
             navController = navigator.navController,
             startDestination = navigator.startDestination,
         ) {
-            recruitmentNavGraph(
-                padding = padding
+            recruitmentNoticeNavGraph(
+                padding = padding,
+                onRecruitmentNoticeClick = { recruitmentNo ->
+                    navigator.navController.navigateRecruitmentNoticeDetail(recruitmentNo)
+                }
+            )
+            recruitmentNoticeDetailNavGraph(
+                padding = padding,
+                onBackClick = {
+                    navigator.navController.popBackStack()
+                }
             )
         }
     }

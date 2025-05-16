@@ -28,6 +28,9 @@
       <SelectionState runConfigName="DueDateTagUpcomingPreview">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="MilitaryServiceInfoCardPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

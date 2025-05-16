@@ -7,7 +7,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.example.mscs.feature.recruitment.navigation.navigateRecruitment
+import com.example.mscs.feature.recruitmentnotice.navigation.navigateRecruitmentNotice
 
 internal class MainNavigator(
     val navController: NavHostController
@@ -24,7 +24,7 @@ internal class MainNavigator(
         }
 
         when (tab) {
-            MainTab.Recruitment -> navController.navigateRecruitment(navOptions)
+            MainTab.Recruitment -> navController.navigateRecruitmentNotice(navOptions)
             MainTab.Favorite -> {
                 Log.d("결과", "navigate: MainTab.Favorite")
             }

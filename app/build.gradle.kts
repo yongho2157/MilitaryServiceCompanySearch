@@ -53,12 +53,11 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.domain)
     implementation(projects.feature.main)
-    implementation(projects.feature.recruitment)
+    implementation(projects.feature.recruitmentNotice)
 
     // Navigation
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
-//    implementation(libs.androidx.navigation.compose)
 
     // Paging
     implementation(libs.androidx.paging.common.ktx)

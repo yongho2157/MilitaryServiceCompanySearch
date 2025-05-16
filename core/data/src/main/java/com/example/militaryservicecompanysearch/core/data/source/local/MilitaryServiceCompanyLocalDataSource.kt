@@ -16,6 +16,8 @@ interface MilitaryServiceCompanyLocalDataSource {
 
     fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNoticeEntity>>
 
+    suspend fun getRecruitmentNoticeByRecruitmentNo(recruitmentNo: String): RecruitmentNoticeEntity?
+
     suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean)
 
 }

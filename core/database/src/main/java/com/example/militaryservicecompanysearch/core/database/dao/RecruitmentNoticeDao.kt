@@ -72,6 +72,9 @@ interface RecruitmentNoticeDao {
     @Query("SELECT * FROM recruitment_notices WHERE isBookmarked = 1")
     fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNoticeEntity>>
 
+    @Query("SELECT * FROM recruitment_notices WHERE recruitment_no = :recruitmentNo")
+    suspend fun getRecruitmentNoticeByRecruitmentNo(recruitmentNo: String): RecruitmentNoticeEntity?
+
     @Query("UPDATE recruitment_notices SET isBookmarked = :isBookmarked WHERE recruitment_no = :recruitmentNo")
     suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean)
 

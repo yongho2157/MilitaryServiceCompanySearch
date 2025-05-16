@@ -16,4 +16,5 @@ interface MilitaryServiceCompanyRepository {
     ): Flow<PagingData<RecruitmentNotice>>
     fun getBookmarkedRecruitmentNotices(): Flow<List<RecruitmentNotice>>
     suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean)
+    suspend fun getRecruitmentNoticeByRecruitmentNo(recruitmentNo: String): RecruitmentNotice
 }

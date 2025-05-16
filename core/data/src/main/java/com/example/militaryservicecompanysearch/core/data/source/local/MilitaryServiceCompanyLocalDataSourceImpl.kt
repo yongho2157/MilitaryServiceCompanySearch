@@ -80,6 +80,10 @@ class MilitaryServiceCompanyLocalDataSourceImpl @Inject constructor(
         return recruitmentNoticeDao.getBookmarkedRecruitmentNotices()
     }
 
+    override suspend fun getRecruitmentNoticeByRecruitmentNo(recruitmentNo: String): RecruitmentNoticeEntity? {
+        return recruitmentNoticeDao.getRecruitmentNoticeByRecruitmentNo(recruitmentNo)
+    }
+
     override suspend fun updateBookmarkStatus(recruitmentNo: String, isBookmarked: Boolean) {
         recruitmentNoticeDao.updateBookmarkStatus(recruitmentNo = recruitmentNo, isBookmarked = isBookmarked)
     }

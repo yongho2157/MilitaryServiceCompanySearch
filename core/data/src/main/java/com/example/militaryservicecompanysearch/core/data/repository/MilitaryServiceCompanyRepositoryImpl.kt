@@ -103,4 +103,10 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
             isBookmarked = isBookmarked
         )
     }
+
+    override suspend fun getRecruitmentNoticeByRecruitmentNo(recruitmentNo: String): RecruitmentNotice {
+        return militaryServiceCompanyLocalDataSource.getRecruitmentNoticeByRecruitmentNo(
+            recruitmentNo
+        )?.toDomain() ?: error("RecruitmentNotice not found with recruitmentNo: $recruitmentNo")
+    }
 }

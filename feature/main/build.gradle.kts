@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.feature.recruitment)
+    implementation(projects.feature.recruitmentNotice)
+    implementation(projects.feature.recruitmentNoticeDetail)
     implementation(libs.kotlinx.immutable)
 }
