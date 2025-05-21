@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.mscs.feature.recruitmentnoticedetail.component.RecruitmentDetailErrorContent
 import com.example.mscs.feature.recruitmentnoticedetail.component.RecruitmentNoticeDetailInfoCard
 import com.example.mscs.feature.recruitmentnoticedetail.model.RecruitmentNoticeDetailUiState
 
@@ -53,6 +54,10 @@ private fun RecruitmentNoticeDetailScreen(
 
             is RecruitmentNoticeDetailUiState.Success -> {
                 RecruitmentNoticeDetailInfoCard(recruitmentNoticeUiState.recruitmentNotice)
+            }
+
+            is RecruitmentNoticeDetailUiState.Error -> {
+                RecruitmentDetailErrorContent(recruitmentNoticeUiState.message)
             }
         }
     }

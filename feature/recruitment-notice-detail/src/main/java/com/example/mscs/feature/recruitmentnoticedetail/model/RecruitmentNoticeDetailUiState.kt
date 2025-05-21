@@ -7,5 +7,8 @@ sealed interface RecruitmentNoticeDetailUiState {
     data class Success(
         val recruitmentNotice: RecruitmentNotice
     ) : RecruitmentNoticeDetailUiState
+    data class Error(
+        val message :String
+    ) : RecruitmentNoticeDetailUiState
 
 }

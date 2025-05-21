@@ -21,9 +21,16 @@ class RecruitmentNoticeDetailViewModel @Inject constructor(
 
     fun getRecruitmentNoticeDetail(recruitmentNo: String) =
         viewModelScope.launch {
-            val recruitmentNotice = getRecruitmentNoticeDetailUseCase(recruitmentNo)
-            _recruitmentNoticeDetailUiState.value = RecruitmentNoticeDetailUiState.Success(
-                recruitmentNotice = recruitmentNotice
-            )
+            _recruitmentNoticeDetailUiState.value = RecruitmentNoticeDetailUiState.Loading
+            try {
+                val recruitmentNotice = getRecruitmentNoticeDetailUseCase(recruitmentNo)
+                _recruitmentNoticeDetailUiState.value = RecruitmentNoticeDetailUiState.Success(
+                    recruitmentNotice = recruitmentNotice
+                )
+            } catch (e: NoSuchElementException) {
+                _recruitmentNoticeDetailUiState.value = RecruitmentNoticeDetailUiState.Error(
+                    "채용 공고가 존재하지 않습니다."
+                )
+            }
         }
 }

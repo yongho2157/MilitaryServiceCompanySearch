@@ -104,9 +104,9 @@ class MilitaryServiceCompanyRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getRecruitmentNoticeByRecruitmentNo(recruitmentNo: String): RecruitmentNotice {
-        return militaryServiceCompanyLocalDataSource.getRecruitmentNoticeByRecruitmentNo(
-            recruitmentNo
-        )?.toDomain() ?: error("RecruitmentNotice not found with recruitmentNo: $recruitmentNo")
-    }
+        override suspend fun getRecruitmentNoticeByRecruitmentNo(recruitmentNo: String): RecruitmentNotice {
+            return militaryServiceCompanyLocalDataSource.getRecruitmentNoticeByRecruitmentNo(
+                recruitmentNo
+            )?.toDomain() ?: throw NoSuchElementException("RecruitmentNotice not found with recruitmentNo: $recruitmentNo")
+        }
 }
