@@ -111,7 +111,6 @@ fun RecruitmentNoticeDetailInfoCard(
             }
         }
 
-        // 선택된 탭에 따라 내용 표시
         when (selectedTabIndex) {
             0 -> MilitaryInfo(recruitmentNotice = recruitmentNotice)
             1 -> CompanyInfo(recruitmentNotice = recruitmentNotice)
